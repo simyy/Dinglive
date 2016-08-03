@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 from handlers.hello import HelloHandler
+from crawler.tv import PandaCrawl
 
 import tornado.httpserver
 import tornado.ioloop
@@ -32,4 +33,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    #main()
+    PandaCrawl().run()

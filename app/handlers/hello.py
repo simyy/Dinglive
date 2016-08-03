@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-from common.base import BaseHandler
+from core.base import BaseHandler
 from models.tables import Student
 
 import tornado.web

@@ -9,7 +9,7 @@ from base import BaseCrawl
 
 
 class ZhanqiCrawl(BaseCrawl):
-    src = 0
+    src_id = 0
     name = '战旗TV'
     def __init__(self):
         super(ZhanqiCrawl, self).__init__(method='get')
@@ -26,16 +26,24 @@ class ZhanqiCrawl(BaseCrawl):
             return None
         rooms = list()
         for item in json_doc['data']['rooms']:
-            ganmeId = 0
-            room = TVRoom(item["code"], item['title'], item['nickname'],
-                item['avatar'], item['gender'], item['url'], item['spic'],
-                item['online'], ganmeId, self.src)
+            ctg_id = 0
+            room = TVRoom(
+                item["code"],
+                item['title'],
+                item['nickname'],
+                item['avatar'] + '-big',
+                item['gender'],
+                item['url'],
+                item['spic'],
+                item['online'],
+                ctg_id,
+                self.src_id)
             rooms.append(room)
         return rooms 
 
 
 class PandaCrawl(BaseCrawl):
-    src = 1
+    src_id = 1
     name = '熊猫TV'
     def __init__(self):
         super(PandaCrawl, self).__init__(method='get')
@@ -44,7 +52,31 @@ class PandaCrawl(BaseCrawl):
         url = "http://www.panda.tv/live_lists?status=2&order=person_num&pageno={page}&pagenum={size}"
         return super(PandaCrawl, self).run(url)
 
+    def parse(self, html):
+        json_doc = json.loads(html)
+        if 'errno' not in json_doc or json_doc['errno'] != 0:
+            return None
+        if 'data' not in json_doc or 'items' not in json_doc['data']:
+            return None
+        rooms = list()
+        for item in json_doc['data']['items']:
+            ctg_id = 0
+            url = "http://www.panda.tv/%s" % item['id']
+            room = TVRoom(
+                item['id'],
+                item['name'],
+                item['userinfo']['nickName'],
+                item['userinfo']['avatar'],
+                -1,
+                url,
+                item['pictures']['img'],
+                item['person_num'],
+                ctg_id,
+                self.src_id)
+            rooms.append(room)
+        return rooms
+
 
 if __name__ == '__main__':
-    #ZhanqiCrawl().run()
-    PandaCrawl().run()
+    print ZhanqiCrawl().run(maxCount=100)
+    print PandaCrawl().run()

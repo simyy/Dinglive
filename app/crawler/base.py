@@ -5,6 +5,8 @@ import time
 import random
 import requests
 
+from core.base import WithBackend
+
 
 class BaseCrawl(object):
     def __init__(self, method='get'):
@@ -12,7 +14,7 @@ class BaseCrawl(object):
 
     def run(self, url, maxCount=300):
         result = list()
-        page = 1
+        page = 0
         size = 30
         while page * size < maxCount:
             page += 1
@@ -49,9 +51,9 @@ class BaseCrawl(object):
         return None
 
 
-class TVRoom(object):
-    def __init__(self, roomId, title, name, avatar, gender, url,
-            pic, count, gameId, src):
+class TVRoom(WithBackend):
+    def __init__(self, roomId, title, name, avatar, gender,
+            url, pic, count, ctg_id, src_id):
         self.roomId = roomId
         self.title = title
         self.name = name
@@ -60,10 +62,10 @@ class TVRoom(object):
         self.url = url
         self.pic = pic
         self.count = count
-        self.gameId = gameId
-        self.src = src
+        self.ctg_id = ctg_id
+        self.src_id = src_id
 
-    def save_pic(self):
+    def _save_pic(self):
         if self.avatar is not None:
             pass
         if self.pic is not None:

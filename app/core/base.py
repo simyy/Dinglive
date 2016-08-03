@@ -13,6 +13,11 @@ class BaseHandler(tornado.web.RequestHandler):
     def backend(self):
         return Backend.instance()
 
+class WithBackend(object):
+    @property
+    def backend(self):
+        return Backend.instance()
+
 
 class Backend(object):
     def __init__(self):
