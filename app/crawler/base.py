@@ -6,6 +6,18 @@ import random
 import requests
 
 from core.base import WithBackend
+from models.tables import TV
+from models.tables import TVCtg
+from models.tables import TVSrc
+from common.utils import save_pic
+
+
+class CrawlerException(Exception):
+    def __init__(self, value):
+        self.value = value
+
+    def __str__(self):
+        return repr(self.value)
 
 
 class BaseCrawl(object):
@@ -52,24 +64,15 @@ class BaseCrawl(object):
 
 
 class TVRoom(WithBackend):
-    def __init__(self, roomId, title, name, avatar, gender,
-            url, pic, count, ctg_id, src_id):
-        self.roomId = roomId
-        self.title = title
-        self.name = name
-        self.avatar = avatar
-        self.gender = gender
-        self.url = url
-        self.pic = pic
-        self.count = count
-        self.ctg_id = ctg_id
-        self.src_id = src_id
+    def __init__(self, **kwargs):
+        if len(kwargs) != 11:
+            raise CrawlerException('TVRoom初始化异常')
+        self.tv = TV.new(kwargs)
 
     def _save_pic(self):
-        if self.avatar is not None:
-            pass
-        if self.pic is not None:
-            pass
+        pass
 
     def save(self):
-        pass
+        session = self.backend.get_session()
+        new_tv = session.merge(self.tv)
+        session.save(new_tv)

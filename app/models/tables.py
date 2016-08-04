@@ -18,37 +18,54 @@ class Student(Base):
     age = Column(Integer)
 
 
-class TVRoom(Base):
+class TV(Base):
  
-    __tablename__ = 'tvroom'
+    __tablename__ = 'tv'
 
     id = Column(Integer, primary_key=True)
-    room_id = Column(Integer)
-    title = Column(VARCHAR(128))
-    name = Column(VARCHAR(128))
-    avatar = Column(VARCHAR(128))
-    gender = Column(Integer)
-    url = Column(VARCHAR(1024))
-    pic = Column(VARCHAR(128))
-    count = Column(Integer)
-    ctg_id = Column(Integer)
-    src_id = Column(Integer)
+    anchor = Column(VARCHAR(32))
+    avatar = Column(VARCHAR(256))
+    room_id = Column(VARCHAR(128))
+    room_name = Column(VARCHAR(128))
+    room_site = Column(VARCHAR(1024))
+    update_time = Column(DateTime)
+    is_online = Column(Integer)
+    fans_count = Column(Integer)
+    audience_count = Column(Integer)
+    category_id = Column(Integer)
+    source_id = Column(Integer)
+
+    @classmethod
+    def new(cls, **kwargs):
+        return cls(
+            anchor=kwargs['anchor'],
+            room_id=kwargs['room_id'],
+            room_name=kwargs['room_name'],
+            room_site=kwargs['room_site'],
+            update_time=kwargs['update_time'],
+            is_online=kwargs['is_online'],
+            fans_count=kwargs['fans_count'],
+            audience_count=kwargs['audience_count'],
+            category_id=kwargs['category_id']
+            source_id=kwargs['source_id'])
  
 
 class TVCtg(Base)
 
-    __tablename__ = 'tvctg'
+    __tablename__ = 'tv_category'
 
     id = Column(Integer, primary_key=True)
-    name = Column(VARCHAR(128))
-    pic = Column(VARCHAR(128))
+    name = Column(VARCHAR(32))
+    pic = Column(VARCHAR(256))
+    count = Column(Integer)
 
 
 class TVSrc(Base):
 
-    __tablename__ = 'tvsrc'
+    __tablename__ = 'tv_source'
 
     id = Column(Integer, primary_key=True)
-    name = Column(VARCHAR(128))
-    pic = Column(VARCHAR(128))
+    name = Column(VARCHAR(32))
+    pic = Column(VARCHAR(256))
     url = Column(VARCHAR(1024))
+    count = Column(Integer)
