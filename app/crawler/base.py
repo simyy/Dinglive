@@ -24,10 +24,10 @@ class BaseCrawl(WithBackend):
     def __init__(self, method='get'):
         self.method = method
 
-    def run(self, url, count=300):
+    def run(self, url, count=300, size=100):
         result = list()
         page = 0
-        size = 30
+        size = size
         while page * size < count:
             page += 1
             tmp_url = url.format(page=page, size=size)

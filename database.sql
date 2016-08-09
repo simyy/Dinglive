@@ -34,3 +34,8 @@ CREATE TABLE `tv_category` (
       `count` int(11) NULL DEFAULT 0 COMMENT '总数',
       PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+########################### Insert #######################################
+INSERT INTO `tv_source` (`name`, `pic`, `url`) VALUES
+    ('战旗', '/static/img/favicon/zhanqi.ico', 'www.zhanqi.tv'),
+    ('熊猫', '/static/img/favicon/panda.ico', 'www.panda.tv');
