@@ -15,7 +15,7 @@ class IndexHandler(BaseHandler):
     def get(self):
         session = self.backend.get_session()
         self.rows = session.query(TV, TVCtg.name, TVSrc.pic).\
-            filter(TV.source_id==TVSrc.id, TV.category_id==TVCtg.id).\
+            filter(TV.source_id==TVSrc.id, TV.category_id==TVCtg.id, TV.is_online==1).\
             order_by(TV.audience_count.desc()).\
             all()[:10]
         self.render('index.html')
@@ -27,12 +27,12 @@ class RoomHandler(BaseHandler):
         session = self.backend.get_session()
         if last_id:
             self.rows = session.query(TV, TVCtg.name, TVSrc.pic).\
-                filter(TV.id>last_id, TV.source_id==TVSrc.id, TV.category_id==TVCtg.id).\
+                filter(TV.id>last_id, TV.source_id==TVSrc.id, TV.category_id==TVCtg.id, TV.is_online==1).\
                 order_by(TV.audience_count.desc()).\
                 all()[:10]
         else:
             self.rows = session.query(TV, TVCtg.name, TVSrc.pic).\
-                filter(TV.source_id==TVSrc.id, TV.category_id==TVCtg.id).\
+                filter(TV.source_id==TVSrc.id, TV.category_id==TVCtg.id, TV.is_online==1).\
                 order_by(TV.audience_count.desc()).\
                 all()[:10]
         response = Response()

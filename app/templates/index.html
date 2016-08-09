@@ -13,10 +13,12 @@
 {%- endmacro %}
 
 {% block content %}
-<!--div class="jumbotron">
-	<h2>Jumbotron heading</h2>
-    <p><a class="btn btn-lg btn-success" href="#" role="button">进入直播间</a></p>
-</div-->
+{% if handler.rows | length == 0 %}
+<div class="jumbotron">
+	<h2>暂时无直播</h2>
+    <p><a class="btn btn-lg btn-info" href="http://qiuar.com" role="button">刷新</a></p-->
+</div>
+{% endif %}
 <div class="row marketing content">
 	{% for row in handler.rows %}
     <div id="{{ row.id }}" class="room row {{ bg_color(loop.index) }}">
