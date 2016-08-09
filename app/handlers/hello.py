@@ -14,5 +14,5 @@ class HelloHandler(BaseHandler):
         #student = Student(name='jack', age=99)
         #session.add(student)
         #session.commit()
-        #self.write("hello")
-        self.render('hello.html')
+        self.write("hello")
+        #self.render('hello.html')
