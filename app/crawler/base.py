@@ -20,15 +20,15 @@ class CrawlerException(Exception):
         return repr(self.value)
 
 
-class BaseCrawl(object):
+class BaseCrawl(WithBackend):
     def __init__(self, method='get'):
         self.method = method
 
-    def run(self, url, maxCount=300):
+    def run(self, url, count=300):
         result = list()
         page = 0
         size = 30
-        while page * size < maxCount:
+        while page * size < count:
             page += 1
             tmp_url = url.format(page=page, size=size)
             res = self.load(tmp_url)
@@ -36,7 +36,7 @@ class BaseCrawl(object):
             if res:
                 result.extend(res)
             time.sleep(random.randrange(10))
-        return result
+        self.save(result)
 
     def load(self, url, kwargs=None):
         if self.method == 'get':
@@ -62,17 +62,37 @@ class BaseCrawl(object):
             return r.text
         return None
 
-
-class TVRoom(WithBackend):
-    def __init__(self, **kwargs):
-        if len(kwargs) != 11:
-            raise CrawlerException('TVRoom初始化异常')
-        self.tv = TV.new(kwargs)
-
-    def _save_pic(self):
-        pass
-
-    def save(self):
+    def save(self, items):
+        ctg_dict = self._get_ctgs()
         session = self.backend.get_session()
-        new_tv = session.merge(self.tv)
-        session.save(new_tv)
+        for item in items:
+            ctg_id = ctg_dict.get(item['category_id'], None)
+            if ctg_id:
+                item['category_id'] = ctg_id
+            else:
+                tvctg = TVCtg(name=item['category_id'])
+                session.add(tvctg)
+                session.commit()
+                ctg_dict[item['category_id']] = tvctg.id
+                item['category_id'] = tvctg.id
+            tv = TV(**item)
+            r = session.query(TV).filter(
+                TV.room_id==item['room_id'],
+                TV.source_id==item['source_id']).all()[:1]
+            if r:
+                tv.id = r[0].id
+                #print '重复tvroom id=%d' % int(tv.id)
+                #print r[0].room_name, r[0].room_id, r[0].source_id
+                #print tv.room_name, tv.room_id, tv.source_id
+            new_tv = session.merge(tv)
+            session.add(new_tv)
+            session.commit()
+
+    def _get_ctgs(self):
+        session = self.backend.get_session()
+        rows = session.query(TVCtg).all()
+        ctg_dict = dict()
+        for row in rows:
+            ctg_dict[row.name] = row.id
+        return ctg_dict
+

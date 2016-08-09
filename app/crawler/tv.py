@@ -3,20 +3,20 @@
 
 import json
 import random
+from datetime import datetime
 
-from base import TVRoom
 from base import BaseCrawl
 
 
 class ZhanqiCrawl(BaseCrawl):
-    src_id = 0
+    source_id = 1
     name = '战旗TV'
     def __init__(self):
         super(ZhanqiCrawl, self).__init__(method='get')
 
-    def run(self, maxCount=300):
+    def run(self, count=300):
         url = "http://www.zhanqi.tv/api/static/live.hots/{size}-{page}.json"
-        return super(ZhanqiCrawl, self).run(url)
+        return super(ZhanqiCrawl, self).run(url, count=count)
 
     def parse(self, html):
         json_doc = json.loads(html)
@@ -24,33 +24,35 @@ class ZhanqiCrawl(BaseCrawl):
             return None
         if 'rooms' not in json_doc['data']:
             return None
-        rooms = list()
+        items = list()
         for item in json_doc['data']['rooms']:
-            ctg_id = 0
-            room = TVRoom(
-                item["code"],
-                item['title'],
-                item['nickname'],
-                item['avatar'] + '-big',
-                item['gender'],
-                item['url'],
-                item['spic'],
-                item['online'],
-                ctg_id,
-                self.src_id)
-            rooms.append(room)
-        return rooms 
+            url = "http://www.zhanqi.tv%s"
+            tmp = {
+                'anchor': item['nickname'],
+                'avatar': item['avatar'] + '-big',
+                'room_id': item['id'],
+                'room_name': item['title'],
+                'room_site': url % item['url'],
+                'update_time': datetime.now(),
+                'is_online': 1,
+                'fans_count': 0,
+                'audience_count': item['online'],
+                'category_id': item['gameName'],
+                'source_id': self.source_id,
+            }
+            items.append(tmp)
+        return items
 
 
 class PandaCrawl(BaseCrawl):
-    src_id = 1
+    source_id = 2
     name = '熊猫TV'
     def __init__(self):
         super(PandaCrawl, self).__init__(method='get')
 
-    def run(self, maxCount=300):
+    def run(self, count=300):
         url = "http://www.panda.tv/live_lists?status=2&order=person_num&pageno={page}&pagenum={size}"
-        return super(PandaCrawl, self).run(url)
+        return super(PandaCrawl, self).run(url, count=count)
 
     def parse(self, html):
         json_doc = json.loads(html)
@@ -58,25 +60,25 @@ class PandaCrawl(BaseCrawl):
             return None
         if 'data' not in json_doc or 'items' not in json_doc['data']:
             return None
-        rooms = list()
+        items = list()
         for item in json_doc['data']['items']:
-            ctg_id = 0
             url = "http://www.panda.tv/%s" % item['id']
-            room = TVRoom(
-                item['id'],
-                item['name'],
-                item['userinfo']['nickName'],
-                item['userinfo']['avatar'],
-                -1,
-                url,
-                item['pictures']['img'],
-                item['person_num'],
-                ctg_id,
-                self.src_id)
-            rooms.append(room)
-        return rooms
+            tmp = {
+                'anchor': item['userinfo']['nickName'],
+                'avatar': item['userinfo']['avatar'],
+                'room_id': item['id'],
+                'room_name': item['name'],
+                'room_site': url,
+                'update_time': datetime.now(),
+                'is_online': 1,
+                'fans_count': 0,
+                'audience_count': item['person_num'],
+                'category_id': item['classification']['cname'],
+                'source_id': self.source_id,
+            }
+            items.append(tmp)
+        return items
 
 
 if __name__ == '__main__':
-    print ZhanqiCrawl().run(maxCount=100)
-    print PandaCrawl().run()
+    ZhanqiCrawl().run(maxCount=100)

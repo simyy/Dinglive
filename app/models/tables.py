@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-from sqlalchemy import Column, String, Integer, VARCHAR,ForeignKey, Float
+from sqlalchemy import Column, String, Integer, VARCHAR,ForeignKey, Float, DateTime
 from sqlalchemy.orm import relationship,backref
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -24,7 +24,7 @@ class TV(Base):
 
     id = Column(Integer, primary_key=True)
     anchor = Column(VARCHAR(32))
-    avatar = Column(VARCHAR(256))
+    avatar = Column(VARCHAR(1024))
     room_id = Column(VARCHAR(128))
     room_name = Column(VARCHAR(128))
     room_site = Column(VARCHAR(1024))
@@ -35,22 +35,8 @@ class TV(Base):
     category_id = Column(Integer)
     source_id = Column(Integer)
 
-    @classmethod
-    def new(cls, **kwargs):
-        return cls(
-            anchor=kwargs['anchor'],
-            room_id=kwargs['room_id'],
-            room_name=kwargs['room_name'],
-            room_site=kwargs['room_site'],
-            update_time=kwargs['update_time'],
-            is_online=kwargs['is_online'],
-            fans_count=kwargs['fans_count'],
-            audience_count=kwargs['audience_count'],
-            category_id=kwargs['category_id']
-            source_id=kwargs['source_id'])
- 
 
-class TVCtg(Base)
+class TVCtg(Base):
 
     __tablename__ = 'tv_category'
 

@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 from core.base import BaseHandler
+from core.base import TTemplate
 from models.tables import Student
 
 import tornado.web
@@ -13,4 +14,5 @@ class HelloHandler(BaseHandler):
         #student = Student(name='jack', age=99)
         #session.add(student)
         #session.commit()
-        self.write("hello")
+        #self.write("hello")
+        self.render('hello.html')
