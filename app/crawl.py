@@ -11,4 +11,8 @@ def main():
 
 
 if __name__ == '__main__':
+
+    from datetime import datetime
+    print 'Crawl start:', datetime.now()
     main()
+    print 'Crawl end:', datetime.now()

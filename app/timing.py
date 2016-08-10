@@ -21,5 +21,7 @@ class Timing(WithBackend):
 
 
 if __name__ == '__main__':
+    print 'timing start:', datetime.now()
     Timing().run()
+    print 'timing end:', datetime.now()
 
