@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+import time
 import json
 import random
 from datetime import datetime
+from bs4 import BeautifulSoup
 
 from base import BaseCrawl
 
@@ -80,5 +82,64 @@ class PandaCrawl(BaseCrawl):
         return items
 
 
+class DouyuCrawl(BaseCrawl):
+    source_id = 3
+    name = '斗鱼TV'
+    def __init__(self):
+        super(DouyuCrawl, self).__init__(method='get')
+
+    def run(self, count=300):
+        url = "http://www.douyu.com/directory/all?page={page}&isAjax=1"
+        return super(DouyuCrawl, self).run(url, count=count)
+
+    def _get_avatar_url(self, room_site):
+        print 'get avatar url:%s' % room_site
+        try:
+            html = self._get(room_site)
+            time.sleep(random.randrange(3))
+            if not html:
+                return None
+            soup = BeautifulSoup(html)
+            if soup.find('div', attrs={'class':'anchor-pic'}) is None:
+                return soup.find('img', attrs={'class':'room_pic'}).attrs['src']
+            return soup.find('div', attrs={'class':'anchor-pic'}).img.attrs['src']
+        except Exception as e:
+            print e
+        return 'http://apic.douyucdn.cn/upload/avatar/default/01_middle.jpg'
+
+    def parse(self, html):
+        items = list()
+        soup = BeautifulSoup(html)
+        lis = soup.findAll('li')
+        for li in lis:
+            anchor = li.find('span', attrs={'class':'dy-name'}).text
+            room_id = li.attrs['data-rid']
+            room_name = li.find('a').attrs['title']
+            room_site = "http://www.douyu.com/%s" % room_id
+            audience_count = li.find('span', attrs={'class':'dy-num'}).text
+            category_id = li.find('span', attrs={'class':'tag'}).text
+            source_id = self.source_id
+            if audience_count[-1] == u'万' or audience_count[-1] == '万':
+                audience_count = float(audience_count[:-1]) * 10000
+            if room_id == '641634':
+                avatar = "http://apic.douyucdn.cn/upload/avatar/face/201606/25/f96b638d35af3ee7c31129e80da97236_middle.jpg"
+            else:
+                avatar = self._get_avatar_url(room_site)
+            items.append({
+                'anchor': anchor,
+                'avatar': avatar,
+                'room_id': room_id,
+                'room_name': room_name,
+                'room_site': room_site,
+                'update_time': datetime.now(),
+                'is_online': 1,
+                'fans_count': 0,
+                'audience_count': audience_count,
+                'category_id': category_id,
+                'source_id': self.source_id,
+            })
+        return items
+
+
 if __name__ == '__main__':
-    ZhanqiCrawl().run(maxCount=100)
+    DouyuCrawl().run(count=100)

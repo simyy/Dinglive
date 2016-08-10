@@ -3,11 +3,13 @@
 
 from crawler.tv import PandaCrawl
 from crawler.tv import ZhanqiCrawl
+from crawler.tv import DouyuCrawl
 
 
 def main():
     ZhanqiCrawl().run(count=500)
     PandaCrawl().run(count=500)
+    DouyuCrawl().run(count=500)
 
 
 if __name__ == '__main__':
