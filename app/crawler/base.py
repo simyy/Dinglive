@@ -28,11 +28,14 @@ class BaseCrawl(WithBackend):
         result = list()
         page = 0
         size = size
-        while page * size < count:
+        num = 0
+        while num < count:
             page += 1
             tmp_url = url.format(page=page, size=size)
             res = self.load(tmp_url)
+            num += len(res)
             print 'load\turl:%s' % tmp_url
+            print 'num:', num
             if res:
                 result.extend(res)
             time.sleep(random.randrange(10))
@@ -82,12 +85,21 @@ class BaseCrawl(WithBackend):
                 TV.source_id==item['source_id']).all()[:1]
             if r:
                 tv.id = r[0].id
+                if not tv.avatar and r[0].avatar:
+                    tv.avatar = r[0].avatar
+                else:
+                    tv.avatar = self._get_avatar_url(item['room_site'])
                 #print '重复tvroom id=%d' % int(tv.id)
                 #print r[0].room_name, r[0].room_id, r[0].source_id
                 #print tv.room_name, tv.room_id, tv.source_id
+            else:
+                tv.avatar = self._get_avatar_url(item['room_site'])
             new_tv = session.merge(tv)
             session.add(new_tv)
             session.commit()
+
+    def _get_avatar_url(self, room_site):
+        return '/static/img/avatar/default.jpg'
 
     def _get_ctgs(self):
         session = self.backend.get_session()

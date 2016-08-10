@@ -121,10 +121,9 @@ class DouyuCrawl(BaseCrawl):
             source_id = self.source_id
             if audience_count[-1] == u'万' or audience_count[-1] == '万':
                 audience_count = float(audience_count[:-1]) * 10000
+            avatar = None
             if room_id == '641634':
                 avatar = "http://apic.douyucdn.cn/upload/avatar/face/201606/25/f96b638d35af3ee7c31129e80da97236_middle.jpg"
-            else:
-                avatar = self._get_avatar_url(room_site)
             items.append({
                 'anchor': anchor,
                 'avatar': avatar,
