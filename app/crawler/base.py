@@ -89,12 +89,10 @@ class BaseCrawl(WithBackend):
                 tv.id = r[0].id
                 if not tv.avatar and r[0].avatar:
                     tv.avatar = r[0].avatar
-                else:
-                    tv.avatar = self._get_avatar_url(item['room_site'])
                 #print '重复tvroom id=%d' % int(tv.id)
                 #print r[0].room_name, r[0].room_id, r[0].source_id
                 #print tv.room_name, tv.room_id, tv.source_id
-            else:
+            if not tv.avatar:
                 tv.avatar = self._get_avatar_url(item['room_site'])
             new_tv = session.merge(tv)
             session.add(new_tv)
