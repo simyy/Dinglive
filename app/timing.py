@@ -14,7 +14,7 @@ class Timing(WithBackend):
 
     def run(self):
         session = self.backend.get_session()
-        minutes_ago = datetime.now() - timedelta(minutes=12)
+        minutes_ago = datetime.now() - timedelta(minutes=21)
         session.query(TV).filter(TV.update_time < minutes_ago).\
                 update({'is_online':0})
         session.commit()
