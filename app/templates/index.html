@@ -23,7 +23,7 @@
 	{% for row in handler.rows %}
     <div id="{{ row.id }}" class="room row {{ bg_color(loop.index) }}">
 		<div class="col-md-1 noleft">
-            <img data-src="holder.js/60x60" class="img-circle" alt="60x60" style="width: 60px; height: 60px;" src="{{ row[0].avatar }}" data-holder-rendered="true"/>
+            <img data-src="holder.js/60x60" class="img-circle" alt="60x60" style="width: 60px; height: 60px;" src="{{ row[0].avatar }}" onerror="this.src='/static/img/avatar/default.jpg'" data-holder-rendered="true"/>
 		</div>
 		<div class="col-md-10">
             <p class="title">{{ row[0].room_name | truncate(60) }}</p>
@@ -51,7 +51,7 @@
 [% for (var i = 0; i < o.data.length; i++) { %]
 	<div id="[%=o.data[i].id%]" class="room row [%=o.data[i].bg_color%]">
 		<div class="col-md-1 noleft">
-            <img data-src="holder.js/60x60" class="img-circle" alt="60x60" style="width: 60px; height: 60px;" src="[%=o.data[i].avatar%]" data-holder-rendered="true"/>
+            <img data-src="holder.js/60x60" class="img-circle" alt="60x60" style="width: 60px; height: 60px;" src="[%=o.data[i].avatar%]" onerror="this.src='/static/img/avatar/default.jpg'" data-holder-rendered="true"/>
 		</div>
 		<div class="col-md-10">
             <p class="title">[%=o.data[i].room_name%]</p>
