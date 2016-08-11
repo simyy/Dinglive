@@ -20,7 +20,7 @@ function next_page() {
 	$(window).on('scroll',function() {
 		var page = $('#page').attr('value');
   		if (scrollTop() + windowHeight() == documentHeight()) {
-  			pattern =new RegExp(".*\/ctg\/(.+?)");
+  			pattern =new RegExp(".*\/ctg\/(.+)?");
   			if (window.location.href.match(pattern) == null)
   				url = "tv/ctg/0/list"
   			else
