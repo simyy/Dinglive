@@ -18,23 +18,27 @@ class IndexHandler(BaseHandler):
             filter(TV.source_id==TVSrc.id, TV.category_id==TVCtg.id, TV.is_online==1).\
             order_by(TV.audience_count.desc()).\
             all()[:10]
-        self.render('index.html')
+        self.render('list.html')
 
 
-class RoomHandler(BaseHandler):
-    def get(self):
-        last_id = self.get_argument('last_id', default=None)
+class ListHandler(BaseHandler):
+    def get(self, ctg_id):
+        page = int(self.get_argument('page', default=0))
         session = self.backend.get_session()
-        if last_id:
+        ctg_id = int(ctg_id)
+        print page, ctg_id
+        if ctg_id == 0:
             self.rows = session.query(TV, TVCtg.name, TVSrc.pic).\
-                filter(TV.id>last_id, TV.source_id==TVSrc.id, TV.category_id==TVCtg.id, TV.is_online==1).\
+                filter(TV.source_id==TVSrc.id, TV.category_id==TVCtg.id,
+                    TV.is_online==1).\
                 order_by(TV.audience_count.desc()).\
-                all()[:10]
+                all()[page*10:(page+1)*10]
         else:
             self.rows = session.query(TV, TVCtg.name, TVSrc.pic).\
-                filter(TV.source_id==TVSrc.id, TV.category_id==TVCtg.id, TV.is_online==1).\
+                filter(TV.source_id==TVSrc.id, TV.category_id==TVCtg.id, 
+                    TV.is_online==1, TV.category_id==ctg_id).\
                 order_by(TV.audience_count.desc()).\
-                all()[:10]
+                all()[page*10:(page+1)*10]
         response = Response()
         if not self.rows:
             data = None
@@ -54,3 +58,23 @@ class RoomHandler(BaseHandler):
                 }) 
             response.set_data(data)
         self.write(response.jsonize())
+
+class Category(BaseHandler):
+    def get(self):
+        session = self.backend.get_session()
+        self.rows = session.query(TVCtg).all()
+        print self.rows
+        self.render('category.html')
+
+
+class CtgList(BaseHandler):
+    def get(self, ctg_id):
+        print ctg_id
+        session = self.backend.get_session()
+        self.rows = session.query(TV, TVCtg.name, TVSrc.pic).\
+            filter(TV.source_id==TVSrc.id, TV.category_id==TVCtg.id,
+                TV.is_online==1, TV.category_id==ctg_id).\
+            order_by(TV.audience_count.desc()).\
+            all()[:10]
+        self.render('list.html')
+

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% macro bg_color(index) -%}
+    {% if index % 16 == 0 %}
+	bg-success
+    {% elif index % 16 == 4 %}
+	bg-info
+    {% elif index % 16 == 8 %}
+	bg-warning
+    {% else %}
+	bg-danger
+    {% endif %}
+{%- endmacro %}
+
+{% block nav %}
+    <li role="presentation" class=""><a href="#">在线</a></li>
+    <li role="presentation" class="active"><a href="/ctg">分类</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="row marketing content">
+	<table class="table">
+		<tbody>
+			{% for i in range(0, handler.rows | length, 4) %}
+			<tr>
+				{% for j in range(4) %}
+					{% if i + j < handler.rows | length %}
+					<td style="border: 0px;"><a href="/ctg/{{ handler.rows[i + j].id }}">{{ handler.rows[i + j].name }}</a></td>
+					{% endif %}
+				{% endfor %}
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% for row in handler.rows %}
+	<div class=""></div>
+	{% endfor %}
+</div>
+{% endblock %}

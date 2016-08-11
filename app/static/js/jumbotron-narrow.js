@@ -18,13 +18,18 @@ function jump_tag() {
 
 function next_page() {
 	$(window).on('scroll',function() {
-		var last_id = $('#last_id').attr('value');
-  		if (scrollTop() + windowHeight() >= documentHeight()) {
-	  		$.getJSON("/tv/rooms", {last_id:last_id}, function(json){ 
+		var page = $('#page').attr('value');
+  		if (scrollTop() + windowHeight() == documentHeight()) {
+  			pattern =new RegExp(".*\/ctg\/(.+?)");
+  			if (window.location.href.match(pattern) == null)
+  				url = "tv/ctg/0/list"
+  			else
+				url = "/tv/ctg/" + window.location.href.match(pattern)[1] + "/list";
+	  		$.getJSON(url, {page:page}, function(json){ 
 	            if (json) {
 	            	if (json.data) {
 		            	fill_page(json);
-		            	$('#last_id').attr('value', parseInt(last_id) + 10);
+		            	$('#page').attr('value', parseInt(page) + 1);
 	            	} else {
 	            		alert('没有更多的数据了!!!');
 	            	}
