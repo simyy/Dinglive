@@ -63,7 +63,6 @@ class Category(BaseHandler):
     def get(self):
         session = self.backend.get_session()
         self.rows = session.query(TVCtg).all()
-        print self.rows
         self.render('category.html')
 
 
