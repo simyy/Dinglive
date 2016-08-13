@@ -16,7 +16,7 @@ class Timing(WithBackend):
 
     def off_line(self):
         session = self.backend.get_session()
-        minutes_ago = datetime.now() - timedelta(minutes=21)
+        minutes_ago = datetime.now() - timedelta(minutes=10)
         session.query(TV).filter(TV.update_time < minutes_ago).\
                 update({'is_online':0})
         session.commit()
