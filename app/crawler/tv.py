@@ -102,8 +102,9 @@ class DouyuCrawl(BaseCrawl):
                 return None
             soup = BeautifulSoup(html)
             if soup.find('div', attrs={'class':'anchor-pic'}) is None:
-                return soup.find('img', attrs={'class':'room_pic'}).attrs['src']
-            avatar = soup.find('div', attrs={'class':'anchor-pic'}).img.attrs['src']
+                avatar = soup.find('img', attrs={'class':'room_pic'}).attrs['src']
+            else:
+                avatar = soup.find('div', attrs={'class':'anchor-pic'}).img.attrs['src']
             if avatar:
                 return avatar
         except Exception as e:
@@ -229,6 +230,8 @@ class LongzhuCrawl(BaseCrawl):
 
 
 if __name__ == '__main__':
+    #ZhanqiCrawl().run(count=100)
+    #PandaCrawl().run(count=100)
     #DouyuCrawl().run(count=100)
     #HuyaCrawl().run(count=100)
     LongzhuCrawl().run(count=100)
