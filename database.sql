@@ -1,3 +1,7 @@
+drop table `tv`;
+drop table `tv_source`;
+drop table `tv_category`;
+
 # TV
 CREATE TABLE `tv` (
       `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',

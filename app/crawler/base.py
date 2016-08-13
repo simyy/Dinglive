@@ -161,7 +161,7 @@ class BaseCrawl(WithBackend):
                 TV.source_id==item['source_id']).all()[:1]
             if r:
                 tv.id = r[0].id
-                if not tv.avatar and r[0].avatar:
+                if not tv.avatar:
                     tv.avatar = r[0].avatar
                 #print '重复tvroom id=%d' % int(tv.id)
                 #print r[0].room_name, r[0].room_id, r[0].source_id
