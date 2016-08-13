@@ -20,6 +20,7 @@ function next_page() {
 	$(window).on('scroll',function() {
 		var page = $('#page').attr('value');
   		if (scrollTop() + windowHeight() == documentHeight()) {
+  			load_start();
   			pattern =new RegExp(".*\/ctg\/(.+)?");
   			if (window.location.href.match(pattern) == null)
   				url = "tv/ctg/0/list"
@@ -33,8 +34,9 @@ function next_page() {
 	            	} else {
 	            		alert('没有更多的数据了!!!');
 	            	}
-	            } 
-	        }); 
+	            }
+	            load_end();  
+	        });
 		}
 	});
 }
@@ -75,4 +77,14 @@ function fill_page(json) {
 	var x = tmpl("tmpl-page", json);
 	$('.marketing').append(x);
 	jump_tag();
+}
+
+function load_start() {
+	console.log('111')
+	$('.loader').css('display', 'block');
+}
+
+function load_end() {
+	console.log('222')
+	$('.loader').css('display', 'none');
 }

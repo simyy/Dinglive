@@ -109,10 +109,21 @@ body {
 
 .title {
   font-family: fantasy;
-  font-size: 50px;
+  font-size: 30px;
+}
+
+.title font {
+  font-size: 20px;
 }
 
 .src_img {
   width: 16px;
   height: 16px;
 }
+
+<!-- for loading -->
+svg path,
+svg rect{
+  fill: #FF6700;
+}
+<!-- loading end -->
