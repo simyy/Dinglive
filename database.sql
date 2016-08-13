@@ -36,6 +36,9 @@ CREATE TABLE `tv_category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ########################### Insert #######################################
-INSERT INTO `tv_source` (`name`, `pic`, `url`) VALUES
-    ('战旗', '/static/img/favicon/zhanqi.ico', 'www.zhanqi.tv'),
-    ('熊猫', '/static/img/favicon/panda.ico', 'www.panda.tv');
+INSERT INTO `tv_source` (`id`, `name`, `pic`, `url`) VALUES
+    (1, '战旗', '/static/img/favicon/zhanqi.ico', 'www.zhanqi.tv'),
+    (2, '熊猫', '/static/img/favicon/panda.ico', 'www.panda.tv');
+    (3, '斗鱼', '/static/img/favicon/douyu.ico', 'www.douyu.com');
+    (4, '虎牙', '/static/img/favicon/huya.ico', 'www.huya.com');
+    (5, '龙珠', '/static/img/favicon/longzhu.ico', 'www.longzhu.com');
