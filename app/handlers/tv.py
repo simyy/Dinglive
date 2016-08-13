@@ -17,7 +17,7 @@ class IndexHandler(BaseHandler):
         self.rows = session.query(TV, TVCtg.name, TVSrc.pic).\
             filter(TV.source_id==TVSrc.id, TV.category_id==TVCtg.id, TV.is_online==1).\
             order_by(TV.audience_count.desc()).\
-            all()[:10]
+            all()[:25]
         self.render('list.html')
 
 
