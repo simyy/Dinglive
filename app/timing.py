@@ -5,18 +5,18 @@ from core.base import WithBackend
 from models.tables import TV, TVCtg
 
 from sqlalchemy import func
-
 from datetime import datetime
 from datetime import timedelta
 
+import sys
 
 class Timing(WithBackend):
     def __init__(self):
         pass
 
-    def off_line(self):
+    def off_line(self, minutes):
         session = self.backend.get_session()
-        minutes_ago = datetime.now() - timedelta(minutes=10)
+        minutes_ago = datetime.now() - timedelta(minutes=minutes)
         session.query(TV).filter(TV.update_time < minutes_ago).\
                 update({'is_online':0})
         session.commit()
@@ -36,13 +36,16 @@ class Timing(WithBackend):
             session.query(TVCtg).filter(TVCtg.id==ctg_id).update({TVCtg.count:0})
             session.commit()
 
-    def run(self):
-        self.off_line()
+    def run(self, off_line_minutes=20):
+        self.off_line(off_line_minutes)
         self.calc_category_count()
 
 
 if __name__ == '__main__':
     print 'timing start:', datetime.now()
-    Timing().run()
+    if len(sys.argv) > 1:
+        Timing().run(int(sys.argv[1]))
+    else:
+        Timing().run()
     print 'timing end:', datetime.now()
 

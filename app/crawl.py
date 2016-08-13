@@ -39,4 +39,4 @@ if __name__ == '__main__':
     else:
         print 'Crawl %s start:' % sys.argv[1] ,datetime.now()
         main(sys.argv[1])
-        print 'Crawl %s end:' % sys.argc[1], datetime.now()
+        print 'Crawl %s end:' % sys.argv[1], datetime.now()
