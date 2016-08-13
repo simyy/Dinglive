@@ -32,7 +32,7 @@
 				<span class="label label-success">{{ row[1] }}</span>
                 <!--span class="label label-warning">粉丝：{{ row[0].fans_count }}</span-->
                 <span class="label label-warning">观众：{{ row[0].audience_count }}</span>
-                <span><img src="{{ row[2] }}"/></span>
+                <span><img class="src_img" src="{{ row[2] }}"/></span>
 			</p>
 		</div>
 		<div class="col-md-1 jump">
@@ -60,7 +60,7 @@
 				<span class="label label-success">[%=o.data[i].category%]</span>
                 <!--span class="label label-warning">粉丝：[%=o.data[i].fans_count%]</span-->
                 <span class="label label-warning">观众：[%=o.data[i].audience_count%]</span>
-                <span><img src="[%=o.data[i].source%]"/></span>
+                <span><img class="src_img" src="[%=o.data[i].source%]"/></span>
 			</p>
 		</div>
 		<div class="col-md-1 jump">

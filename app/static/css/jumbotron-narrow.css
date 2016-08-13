@@ -111,3 +111,8 @@ body {
   font-family: fantasy;
   font-size: 50px;
 }
+
+.src_img {
+  width: 18px;
+  height: 18px;
+}

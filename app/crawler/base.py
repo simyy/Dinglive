@@ -80,7 +80,6 @@ class BaseCrawl(WithBackend):
                 session.commit()
                 ctg_dict[item['category_id']] = tvctg.id
                 item['category_id'] = tvctg.id
-            print item
             tv = TV(**item)
             r = session.query(TV).filter(
                 TV.room_id==item['room_id'],

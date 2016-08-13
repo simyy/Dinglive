@@ -140,5 +140,92 @@ class DouyuCrawl(BaseCrawl):
         return items
 
 
+class HuyaCrawl(BaseCrawl):
+    source_id = 4
+    name = '虎牙TV'
+    def __init__(self):
+        super(HuyaCrawl, self).__init__(method='get')
+
+    def run(self, count=300):
+        url = "http://www.huya.com/cache.php?m=Live&do=ajaxAllLiveByPage&page={page}&pageNum=1"
+        return super(HuyaCrawl, self).run(url, count=count)
+
+    def parse(self, html):
+        json_doc = json.loads(html)
+        if 'status' not in json_doc or json_doc['status'] != 200:
+            return None
+        if 'list' not in json_doc['data']:
+            return None
+        items = list()
+        for item in json_doc['data']['list']:
+            url = "http://www.huya.com/%s"
+            tmp = {
+                'anchor': item['nick'],
+                'avatar': item['avatar180'],
+                'room_id': item['privateHost'],
+                'room_name': item['roomName'],
+                'room_site': url % item['privateHost'],
+                'update_time': datetime.now(),
+                'is_online': 1,
+                'fans_count': 0,
+                'audience_count': item['totalCount'],
+                'category_id': item['gameFullName'],
+                'source_id': self.source_id,
+            }
+            items.append(tmp)
+        return items
+
+
+class LongzhuCrawl(BaseCrawl):
+    source_id = 5
+    name = '龙珠TV'
+    def __init__(self):
+        super(LongzhuCrawl, self).__init__(method='get')
+
+    def run(self, count=300):
+        url = "http://api.plu.cn/tga/streams?max-results=18&start-index={start_index}&sort-by=views"
+        result = list()
+        start_index = 0
+        num = 0
+        while num < count:
+            tmp_url = url.format(start_index=start_index)
+            start_index += 18
+            res = self.load(tmp_url)
+            print 'load\turl:%s' % tmp_url
+            if not res or len(res) == 0:
+                break
+            num += len(res)
+            print 'num:', num
+            if res:
+                result.extend(res)
+            time.sleep(random.randrange(10))
+        self.save(result)
+
+    def parse(self, html):
+        json_doc = json.loads(html)
+        if 'data' not in json_doc:
+            return None
+        items = list()
+        for item in json_doc['data']['items']:
+            url = "http://www.huya.com/%s"
+            tmp = {
+                'anchor': item['channel']['name'],
+                'avatar': item['channel']['avatar'],
+                'room_id': item['channel']['id'],
+                'room_name': item['channel']['status'],
+                'room_site': item['channel']['url'],
+                'update_time': datetime.now(),
+                'is_online': 1,
+                'fans_count': item['channel']['followers'],
+                'audience_count': item['viewers'],
+                'category_id': item['game'][0]['Name'],
+                'source_id': self.source_id,
+            }
+            items.append(tmp)
+        return items
+
+
 if __name__ == '__main__':
-    DouyuCrawl().run(count=100)
+    #DouyuCrawl().run(count=100)
+    #HuyaCrawl().run(count=100)
+    LongzhuCrawl().run(count=100)

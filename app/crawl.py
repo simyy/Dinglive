@@ -4,12 +4,16 @@
 from crawler.tv import PandaCrawl
 from crawler.tv import ZhanqiCrawl
 from crawler.tv import DouyuCrawl
+from crawler.tv import LongzhuCrawl
+from crawler.tv import HuyaCrawl
 
 
 def main():
-    ZhanqiCrawl().run(count=500)
-    PandaCrawl().run(count=500)
-    DouyuCrawl().run(count=500)
+    ZhanqiCrawl().run(count=1000)
+    PandaCrawl().run(count=1000)
+    DouyuCrawl().run(count=1000)
+    LongzhuCrawl().run(count=1000)
+    HuyaCrawl().run(count=1000)
 
 
 if __name__ == '__main__':
