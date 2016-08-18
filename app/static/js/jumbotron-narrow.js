@@ -3,6 +3,8 @@ $(function () {
 	next_page();
 });
 
+var stop = false;
+
 function jump_tag() {
 	$('.room').on({
 		mouseover: function(e) {
@@ -19,7 +21,8 @@ function jump_tag() {
 function next_page() {
 	$(window).on('scroll',function() {
 		var page = $('#page').attr('value');
-  		if (scrollTop() + windowHeight() == documentHeight()) {
+  		if (scrollTop() + windowHeight() == documentHeight() && stop == false) {
+  			stop = true;
   			load_start();
   			pattern =new RegExp(".*\/ctg\/(.+)?");
   			if (window.location.href.match(pattern) == null)
@@ -31,6 +34,7 @@ function next_page() {
 	            	if (json.data) {
 		            	fill_page(json);
 		            	$('#page').attr('value', parseInt(page) + 1);
+		            	stop = false;
 	            	} else {
 	            		alert('没有更多的数据了!!!');
 	            	}
