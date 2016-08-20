@@ -1,3 +1,8 @@
 #!/bin/bash
 
-echo "run ..."
+echo "stop ..."
+kill  `ps -ef | grep web.py | grep -v grep | awk '{print $2}'`
+
+echo "start ..."
+cd app;
+python web.py &
