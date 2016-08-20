@@ -21,6 +21,7 @@
 {% endif %}
 <div class="row marketing content">
     {% for row in handler.rows %}
+    <a href="{{ row[0].room_site }}" target=_blank>
     <div id="{{ row.id }}" class="room row {{ bg_color(loop.index) }}">
         <div class="col-md-1 noleft">
             <img data-src="holder.js/60x60" class="img-circle" alt="60x60" style="width: 60px; height: 60px;" src="{{ row[0].avatar }}" onerror="this.src='/static/img/avatar/default.jpg'" data-holder-rendered="true"/>
@@ -40,6 +41,7 @@
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         </a>
     </div>
+    </a>
 </div>
 <div id="page" value="1"></div>
 {% endfor %}
