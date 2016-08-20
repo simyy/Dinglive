@@ -2,47 +2,47 @@
 
 {% macro bg_color(index) -%}
     {% if index % 4 == 0 %}
-	bg-success
+        bg-success
     {% elif index % 4 == 1 %}
-	bg-info
+        bg-info
     {% elif index % 4 == 2 %}
-	bg-warning
+        bg-warning
     {% else %}
-	bg-danger
+        bg-danger
     {% endif %}
 {%- endmacro %}
 
 {% block content %}
 {% if handler.rows | length == 0 %}
 <div class="jumbotron">
-	<h2>暂时无直播</h2>
-    <p><a class="btn btn-lg btn-info" href="http://qiuar.com" role="button">刷新</a></p-->
+    <h2>暂时无直播</h2>
+    <p><a class="btn btn-lg btn-info" href="http://dinglive.com" role="button">刷新</a></p-->
 </div>
 {% endif %}
 <div class="row marketing content">
-	{% for row in handler.rows %}
+    {% for row in handler.rows %}
     <div id="{{ row.id }}" class="room row {{ bg_color(loop.index) }}">
-		<div class="col-md-1 noleft">
+        <div class="col-md-1 noleft">
             <img data-src="holder.js/60x60" class="img-circle" alt="60x60" style="width: 60px; height: 60px;" src="{{ row[0].avatar }}" onerror="this.src='/static/img/avatar/default.jpg'" data-holder-rendered="true"/>
-		</div>
-		<div class="col-md-10">
+        </div>
+        <div class="col-md-10">
             <p class="title">{{ row[0].room_name | truncate(60) }}</p>
-			<p class="tag">
-            	<span class="label label-info">{{ row[0].anchor }}</span>
-				<span class="label label-success">{{ row[1] }}</span>
+            <p class="tag">
+                <span class="label label-info">{{ row[0].anchor }}</span>
+                <span class="label label-success">{{ row[1] }}</span>
                 <!--span class="label label-warning">粉丝：{{ row[0].fans_count }}</span-->
                 <span class="label label-warning">观众：{{ row[0].audience_count }}</span>
                 <span><img class="src_img" src="{{ row[2] }}"/></span>
-			</p>
-		</div>
-		<div class="col-md-1 jump">
-			<a href="{{ row[0].room_site }}" target=_blank>
-				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-			</a>
-		</div>
-	</div>
-	<div id="page" value="1"></div>
-	{% endfor %}
+            </p>
+    </div>
+    <div class="col-md-1 jump">
+        <a href="{{ row[0].room_site }}" target=_blank>
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        </a>
+    </div>
+</div>
+<div id="page" value="1"></div>
+{% endfor %}
 </div>
 <div class="loader" style="margin-left:40%; display:none">
   <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -69,26 +69,26 @@
 {% block javascript %}
 <script type="text/x-tmpl" id="tmpl-page">
 [% for (var i = 0; i < o.data.length; i++) { %]
-	<div id="[%=o.data[i].id%]" class="room row [%=o.data[i].bg_color%]">
-		<div class="col-md-1 noleft">
-            <img data-src="holder.js/60x60" class="img-circle" alt="60x60" style="width: 60px; height: 60px;" src="[%=o.data[i].avatar%]" onerror="this.src='/static/img/avatar/default.jpg'" data-holder-rendered="true"/>
-		</div>
-		<div class="col-md-10">
-            <p class="title">[%=o.data[i].room_name%]</p>
-			<p class="tag">
+<div id="[%=o.data[i].id%]" class="room row [%=o.data[i].bg_color%]">
+    <div class="col-md-1 noleft">
+        <img data-src="holder.js/60x60" class="img-circle" alt="60x60" style="width: 60px; height: 60px;" src="[%=o.data[i].avatar%]" onerror="this.src='/static/img/avatar/default.jpg'" data-holder-rendered="true"/>
+    </div>
+    <div class="col-md-10">
+        <p class="title">[%=o.data[i].room_name%]</p>
+        <p class="tag">
             <span class="label label-info">[%=o.data[i].anchor%]</span>
-				<span class="label label-success">[%=o.data[i].category%]</span>
-                <!--span class="label label-warning">粉丝：[%=o.data[i].fans_count%]</span-->
-                <span class="label label-warning">观众：[%=o.data[i].audience_count%]</span>
-                <span><img class="src_img" src="[%=o.data[i].source%]"/></span>
-			</p>
-		</div>
-		<div class="col-md-1 jump">
-			<a href="[%=o.data[i].room_site%]">
-				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-			</a>
-		</div>
-	</div>
+            <span class="label label-success">[%=o.data[i].category%]</span>
+            <!--span class="label label-warning">粉丝：[%=o.data[i].fans_count%]</span-->
+            <span class="label label-warning">观众：[%=o.data[i].audience_count%]</span>
+            <span><img class="src_img" src="[%=o.data[i].source%]"/></span>
+        </p>
+    </div>
+    <div class="col-md-1 jump">
+        <a href="[%=o.data[i].room_site%]">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        </a>
+    </div>
+</div>
 [% } %]
 </script>
 {% endblock %}

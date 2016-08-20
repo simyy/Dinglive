@@ -2,12 +2,11 @@
 # encoding: utf-8
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.orm import sessionmaker
 from tornado import template, web
 from conf import DB_PWD, DB_USER, DB_HOST, DB_NAME
 from core import decorator
 
-import json
 import jinja2
 import threading
 
@@ -19,8 +18,7 @@ class Response(object):
         self.data = None
 
     def set_data(self, data):
-        if data and not isinstance(data, dict) and \
-            not isinstance(data, list):
+        if data and not isinstance(data, dict) and not isinstance(data, list):
             raise Exception("Response data must be a dict")
         self.data = data
 
@@ -48,12 +46,9 @@ class WithBackend(object):
 
 class Backend(object):
     def __init__(self):
-        engine = create_engine('mysql://%s:%s@%s/%s?charset=utf8' %
-            (DB_USER, DB_PWD, DB_HOST, DB_NAME),
-            encoding='utf-8', echo=False,
-            pool_size=100, pool_recycle=10)
-        self._session = sessionmaker(bind=engine, 
-                autocommit=False, autoflush=False)
+        engine = create_engine('mysql://%s:%s@%s/%s?charset=utf8' % (DB_USER, DB_PWD, DB_HOST, DB_NAME),
+            encoding='utf-8', echo=False, pool_size=100, pool_recycle=10)
+        self._session = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 
     @classmethod
     def instance(cls):
