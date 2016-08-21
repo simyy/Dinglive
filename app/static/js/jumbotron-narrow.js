@@ -42,7 +42,8 @@ function next_page() {
             pattern = new RegExp(".*\/search\/(.+)?");
             if (window.location.href.match(pattern) != null) {
                 var searchStr = window.location.href.match(pattern)[1];
-                params = {page: page, searchStr: searchStr}
+                console.log(decodeURI(searchStr))
+                params = {page: page, searchStr: decodeURI(searchStr)}
             }
 
             $.getJSON(url, params, function(json) {
