@@ -29,7 +29,10 @@ class ListHandler(BaseHandler):
             if searchStr:
                 ctgs = session.query(TVCtg).filter(TVCtg.name.like('%' + searchStr + '%'))
                 if not ctgs:
-                    self.rows = []
+                    self.rows = session.query(TV, TVCtg.name, TVSrc.pic).\
+                        filter(TV.source_id == TVSrc.id, TV.category_id == TVCtg.id, TV.is_online == 1, TV.anchor.like('%' + searchStr + '%')).\
+                        order_by(TV.audience_count.desc()).\
+                        all()[page*10:(page+1)*10]
                 else:
                     ctg_ids = [x.id for x in ctgs]
                     self.rows = session.query(TV, TVCtg.name, TVSrc.pic).\
@@ -92,6 +95,11 @@ class SearchIndex(BaseHandler):
             ctg_ids = [x.id for x in ctgs]
             self.rows = session.query(TV, TVCtg.name, TVSrc.pic).\
                 filter(TV.source_id == TVSrc.id, TV.category_id == TVCtg.id, TV.is_online == 1, TV.category_id.in_(ctg_ids)).\
+                order_by(TV.audience_count.desc()).\
+                all()[:25]
+        else:
+            self.rows = session.query(TV, TVCtg.name, TVSrc.pic).\
+                filter(TV.source_id == TVSrc.id, TV.category_id == TVCtg.id, TV.is_online == 1, TV.anchor.like('%' + searchStr + '%')).\
                 order_by(TV.audience_count.desc()).\
                 all()[:25]
         self.render('list.html')

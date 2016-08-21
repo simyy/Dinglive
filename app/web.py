@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 import os
+import sys
 import tornado.httpserver
 import tornado.ioloop
 import tornado.options
@@ -36,17 +37,21 @@ class My404Handler(BaseHandler):
 tornado.web.ErrorHandler = My404Handler
 
 
-def main():
+def main(debug):
     app = tornado.web.Application(
             handlers, template_loader=JinjaLoader(
                 os.path.join(os.path.dirname(__file__), 'templates/')),
             static_path=os.path.join(os.path.dirname(__file__), "static"),
             default_handler_class=My404Handler,
-            debug=False)
+            debug=debug)
     http_server = tornado.httpserver.HTTPServer(app)
     http_server.listen(options.port)
     tornado.ioloop.IOLoop.instance().start()
 
 
 if __name__ == "__main__":
-    main()
+    debug = False
+    if len(sys.argv) == 2:
+        if sys.argv[1] == 'debug':
+            debug = True
+    main(debug)
