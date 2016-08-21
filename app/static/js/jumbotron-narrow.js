@@ -17,10 +17,20 @@ function jump_tag() {
         mouseover: function(e) {
             $(this).find('.jump').css('visibility', 'visible');
             $(this).css('border', '2px dashed #C3BDCC');
+            $(this).css('transition', 'ease-out 0.1s');
+            $(this).css('transform', 'scale(1.05)');
+            $(this).css('-ms-transform', 'scale(1.05)');
+            $(this).css('-moz-transform', 'scale(1.05)');
+            $(this).css('-webkit-transform', 'scale(1.05)');
         },
         mouseout: function(e) {
             $(this).find('.jump').css('visibility', 'hidden');
             $(this).css('border', '0px');
+            $(this).css('transition', 'ease-out 0.1s');
+            $(this).css('transform', 'scale(1)');
+            $(this).css('-ms-transform', 'scale(1)');
+            $(this).css('-moz-transform', 'scale(1)');
+            $(this).css('-webkit-transform', 'scale(1)');
         }
     });
 }
@@ -95,6 +105,7 @@ function fill_page(json) {
     }
     var x = tmpl("tmpl-page", json);
     $('.marketing').append(x);
+    $('#div_' + json.data[0].id).fadeIn();
     jump_tag();
 }
 
@@ -104,10 +115,5 @@ function load_start() {
 
 function load_end() {
     $('.loader').css('display', 'none');
-}
-
-function searchStr() {
-    var str = $('#searchStr').text;
-    console.log(str)
 }
 
