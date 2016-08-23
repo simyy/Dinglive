@@ -20,10 +20,10 @@ define('port', default=4000, help="server port", type=int)
 
 handlers = [
     (r'/hello', HelloHandler),
-    (r'/', tv.IndexHandler),
-    (r'/tv/ctg/([0-9]+)/list', tv.ListHandler),
+    (r'/', tv.Index),
+    (r'/tv/ctg/([0-9]+)/list', tv.List),
     (r'/ctg', tv.Category),
-    (r'/ctg/([0-9]+)', tv.CtgList),
+    (r'/ctg/([0-9]+)', tv.CategoryIndex),
     (r'/search/(.+)', tv.SearchIndex),
 ]
 

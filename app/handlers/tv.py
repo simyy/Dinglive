@@ -62,14 +62,14 @@ class List(BaseHandler):
         self.rows = query[page * 10 : (page + 1) * pageSize]
 
 
-class Ctg(BaseHandler):
+class Category(BaseHandler):
     def get(self):
         session = self.backend.get_session()
         self.rows = session.query(TVCtg).order_by(TVCtg.count.desc()).all()
         self.render('category.html')
 
 
-class CtgIndex(BaseHandler):
+class CategoryIndex(BaseHandler):
     def get(self, ctg_id):
         session = self.backend.get_session()
         self.rows = session.query(TV, TVCtg.name, TVSrc.pic)\
@@ -83,7 +83,7 @@ class SearchIndex(BaseHandler):
     def get(self, searchStr):
         session = self.backend.get_session()
         query = session.query(TV, TVCtg.name, TVSrc.pic)\
-            .filter(TV.source_id == TVSrc.id, TV.category_id == TVCtg.id, TV.is_online=online)
+            .filter(TV.source_id == TVSrc.id, TV.category_id == TVCtg.id, TV.is_online == online)
         ctgs = session.query(TVCtg).filter(TVCtg.name.like('%' + searchStr + '%')).all()
         if ctgs:
             ctg_ids = [x.id for x in ctgs]
