@@ -42,9 +42,7 @@ class List(BaseHandler):
                 'audience_count': row[0].audience_count,
                 'category': row[1],
                 'source': row[2]})
-        response = SuccessResponse()
-        response.set_data(data)
-        self.write(response.jsonize())
+        self.write(SuccessResponse(data).jsonize())
 
     def list(self, ctg_id=allCtg, searchStr=None, page=1, pageSize=pageSize):
         session = self.backend.get_session()
