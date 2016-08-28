@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 from core.base import BaseHandler
-from core.base import Response
+from core.base import SuccessResponse
 from models.tables import TV
 from models.tables import TVCtg
 from models.tables import TVSrc
@@ -42,6 +42,7 @@ class List(BaseHandler):
                 'audience_count': row[0].audience_count,
                 'category': row[1],
                 'source': row[2]})
+        response = SuccessResponse()
         response.set_data(data)
         self.write(response.jsonize())
 
