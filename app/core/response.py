@@ -17,17 +17,6 @@ ERROR_PARAM = 3001
 ERROR_SERV = 3002
 
 
-class SuccessResponse(Response):
-    def __init__(self, data):
-        super(SuccessResponse, self).__init__(code=SUCCESS, msg='OK')
-        self.set_data(data)
-
-
-class ErrorResponse(Response):
-    def __init__(self, code, msg):
-        super(ErrorResponse, self).__init__(code=code, msg=msg)
-
-
 class Response(object):
     def __init__(self, code=0, msg='OK'):
         self.code = code
@@ -47,3 +36,14 @@ class Response(object):
             'data': self.data,
         }
         return result
+
+
+class SuccessResponse(Response):
+    def __init__(self, data):
+        super(SuccessResponse, self).__init__(code=SUCCESS, msg='OK')
+        self.set_data(data)
+
+
+class ErrorResponse(Response):
+    def __init__(self, code, msg):
+        super(ErrorResponse, self).__init__(code=code, msg=msg)
