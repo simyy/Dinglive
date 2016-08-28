@@ -59,7 +59,7 @@ class List(BaseHandler):
             else:
                 query = query.filter(TV.anchor.like('%' + searchStr + '%'))
         query = query.order_by(TV.audience_count.desc())
-        self.rows = query[page * 10 : (page + 1) * pageSize]
+        return query[page * 10 : (page + 1) * pageSize]
 
 
 class Category(BaseHandler):
