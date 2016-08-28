@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 from core.base import BaseHandler
-from core.base import SuccessResponse
+from core.response import SuccessResponse
 from models.tables import TV
 from models.tables import TVCtg
 from models.tables import TVSrc
