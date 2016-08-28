@@ -1,6 +1,6 @@
-drop table `tv`;
-drop table `tv_source`;
-drop table `tv_category`;
+drop table if exists `tv`;
+drop table if exists `tv_source`;
+drop table if exists `tv_category`;
 
 # TV
 CREATE TABLE `tv` (
