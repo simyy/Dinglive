@@ -18,7 +18,8 @@ class Index(BaseHandler):
     def get(self):
         session = self.backend.get_session()
         self.rows = session.query(TV, TVCtg.name, TVSrc.pic)\
-            .filter(TV.source_id == TVSrc.id, TV.category_id == TVCtg.id, TV.is_online == 1)\
+            .filter(TV.source_id == TVSrc.id, TV.category_id == TVCtg.id,
+                    TV.is_online == 1)\
             .order_by(TV.audience_count.desc())\
             .all()[:indexSize]
         self.render('list.html')
@@ -47,18 +48,20 @@ class List(BaseHandler):
     def list(self, ctg_id=allCtg, searchStr=None, page=1, pageSize=pageSize):
         session = self.backend.get_session()
         query = session.query(TV, TVCtg.name, TVSrc.pic)\
-                .filter(TV.source_id == TVSrc.id, TV.category_id == TVCtg.id, TV.is_online == 1)
+            .filter(TV.source_id == TVSrc.id, TV.category_id == TVCtg.id,
+                    TV.is_online == 1)
         if ctg_id != allCtg:
             query = query.filter(TV.category_id == ctg_id)
         if searchStr:
-            ctgs = session.query(TVCtg).filter(TVCtg.name.like('%' + searchStr + '%'))
+            ctgs = session.query(TVCtg)\
+                .filter(TVCtg.name.like('%' + searchStr + '%'))
             if ctgs:
                 ctg_ids = [x.id for x in ctgs]
                 query = query.filter(TV.category_id.in_(ctg_ids))
             else:
                 query = query.filter(TV.anchor.like('%' + searchStr + '%'))
         query = query.order_by(TV.audience_count.desc())
-        return query[page * 10 : (page + 1) * pageSize]
+        return query[page*10: (page+1)*pageSize]
 
 
 class Category(BaseHandler):
@@ -72,7 +75,8 @@ class CategoryIndex(BaseHandler):
     def get(self, ctg_id):
         session = self.backend.get_session()
         self.rows = session.query(TV, TVCtg.name, TVSrc.pic)\
-            .filter(TV.source_id == TVSrc.id, TV.category_id == TVCtg.id, TV.is_online == 1, TV.category_id == ctg_id)\
+            .filter(TV.source_id == TVSrc.id, TV.category_id == TVCtg.id,
+                    TV.is_online == 1, TV.category_id == ctg_id)\
             .order_by(TV.audience_count.desc())\
             .all()[:25]
         self.render('list.html')
@@ -82,8 +86,11 @@ class SearchIndex(BaseHandler):
     def get(self, searchStr):
         session = self.backend.get_session()
         query = session.query(TV, TVCtg.name, TVSrc.pic)\
-            .filter(TV.source_id == TVSrc.id, TV.category_id == TVCtg.id, TV.is_online == online)
-        ctgs = session.query(TVCtg).filter(TVCtg.name.like('%' + searchStr + '%')).all()
+            .filter(TV.source_id == TVSrc.id, TV.category_id == TVCtg.id,
+                    TV.is_online == online)
+        ctgs = session.query(TVCtg)\
+            .filter(TVCtg.name.like('%' + searchStr + '%'))\
+            .all()
         if ctgs:
             ctg_ids = [x.id for x in ctgs]
             query = query.filter(TV.category_id.in_(ctg_ids))

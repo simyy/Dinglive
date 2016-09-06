@@ -13,6 +13,7 @@ from base import BaseCrawl
 class ZhanqiCrawl(BaseCrawl):
     source_id = 1
     name = '战旗TV'
+
     def __init__(self):
         super(ZhanqiCrawl, self).__init__(method='get')
 
@@ -49,11 +50,13 @@ class ZhanqiCrawl(BaseCrawl):
 class PandaCrawl(BaseCrawl):
     source_id = 2
     name = '熊猫TV'
+
     def __init__(self):
         super(PandaCrawl, self).__init__(method='get')
 
     def run(self, count=300):
-        url = "http://www.panda.tv/live_lists?status=2&order=person_num&pageno={page}&pagenum={size}"
+        url = "http://www.panda.tv/live_lists?status=2&\
+                order=person_num&pageno={page}&pagenum={size}"
         return super(PandaCrawl, self).run(url, count=count)
 
     def parse(self, html):
@@ -85,6 +88,7 @@ class PandaCrawl(BaseCrawl):
 class DouyuCrawl(BaseCrawl):
     source_id = 3
     name = '斗鱼TV'
+
     def __init__(self):
         super(DouyuCrawl, self).__init__(method='get')
 
@@ -101,10 +105,12 @@ class DouyuCrawl(BaseCrawl):
             if not html:
                 return None
             soup = BeautifulSoup(html)
-            if soup.find('div', attrs={'class':'anchor-pic'}) is None:
-                avatar = soup.find('img', attrs={'class':'room_pic'}).attrs['src']
+            if soup.find('div', attrs={'class': 'anchor-pic'}) is None:
+                avatar = soup.find('img', attrs={'class': 'room_pic'})\
+                    .attrs['src']
             else:
-                avatar = soup.find('div', attrs={'class':'anchor-pic'}).img.attrs['src']
+                avatar = soup.find('div', attrs={'class': 'anchor-pic'})\
+                    .img.attrs['src']
             if avatar:
                 return avatar
         except Exception as e:
@@ -116,18 +122,18 @@ class DouyuCrawl(BaseCrawl):
         soup = BeautifulSoup(html)
         lis = soup.findAll('li')
         for li in lis:
-            anchor = li.find('span', attrs={'class':'dy-name'}).text
+            anchor = li.find('span', attrs={'class': 'dy-name'}).text
             room_id = li.attrs['data-rid']
             room_name = li.find('a').attrs['title']
             room_site = "http://www.douyu.com/%s" % room_id
-            audience_count = li.find('span', attrs={'class':'dy-num'}).text
-            category_id = li.find('span', attrs={'class':'tag'}).text
-            source_id = self.source_id
+            audience_count = li.find('span', attrs={'class': 'dy-num'}).text
+            category_id = li.find('span', attrs={'class': 'tag'}).text
             if audience_count[-1] == u'万' or audience_count[-1] == '万':
                 audience_count = float(audience_count[:-1]) * 10000
             avatar = None
             if room_id == '641634':
-                avatar = "http://apic.douyucdn.cn/upload/avatar/face/201606/25/f96b638d35af3ee7c31129e80da97236_middle.jpg"
+                avatar = "http://apic.douyucdn.cn/upload/avatar/face/\
+                    201606/25/f96b638d35af3ee7c31129e80da97236_middle.jpg"
             items.append({
                 'anchor': anchor,
                 'avatar': avatar,
@@ -147,11 +153,13 @@ class DouyuCrawl(BaseCrawl):
 class HuyaCrawl(BaseCrawl):
     source_id = 4
     name = '虎牙TV'
+
     def __init__(self):
         super(HuyaCrawl, self).__init__(method='get')
 
     def run(self, count=300):
-        url = "http://www.huya.com/cache.php?m=Live&do=ajaxAllLiveByPage&page={page}&pageNum=1"
+        url = "http://www.huya.com/cache.php?m=Live&\
+            do=ajaxAllLiveByPage&page={page}&pageNum=1"
         return super(HuyaCrawl, self).run(url, count=count)
 
     def parse(self, html):
@@ -183,11 +191,13 @@ class HuyaCrawl(BaseCrawl):
 class LongzhuCrawl(BaseCrawl):
     source_id = 5
     name = '龙珠TV'
+
     def __init__(self):
         super(LongzhuCrawl, self).__init__(method='get')
 
     def run(self, count=300):
-        url = "http://api.plu.cn/tga/streams?max-results=18&start-index={start_index}&sort-by=views"
+        url = "http://api.plu.cn/tga/streams?max-results=18&\
+            start-index={start_index}&sort-by=views"
         result = list()
         start_index = 0
         num = 0
@@ -211,7 +221,6 @@ class LongzhuCrawl(BaseCrawl):
             return None
         items = list()
         for item in json_doc['data']['items']:
-            url = "http://www.huya.com/%s"
             tmp = {
                 'anchor': item['channel']['name'],
                 'avatar': item['channel']['avatar'],
@@ -229,9 +238,63 @@ class LongzhuCrawl(BaseCrawl):
         return items
 
 
+class QuanminCrawl(BaseCrawl):
+    source_id = 6
+    name = '全民直播'
+
+    def __init__(self):
+        super(QuanminCrawl, self).__init__(method='get')
+
+    def run(self, count=300):
+        url = "http://www.quanmin.tv/json/play/{list_page}.json"
+        result = list()
+        page = 0
+        num = 0
+        while num < count:
+            if page == 0:
+                list_page = 'list'
+            else:
+                list_page = 'list_%d' % page
+            page += 1
+            tmp_url = url.format(list_page=list_page)
+            res = self.load(tmp_url)
+            print 'load\turl:%s' % tmp_url
+            if not res or len(res) == 0:
+                break
+            num += len(res)
+            print 'num:', num
+            if res:
+                result.extend(res)
+            time.sleep(random.randrange(10))
+        self.save(result)
+
+    def parse(self, html):
+        json_doc = json.loads(html)
+        if 'data' not in json_doc:
+            return None
+        items = list()
+        for item in json_doc['data']:
+            tmp = {
+                'anchor': item['nick'],
+                'avatar': item['avatar'],
+                'room_id': item['uid'],
+                'room_name': item['title'],
+                'room_site': "http://www.quanmin.tv/v/%s" % item['uid'],
+                'update_time': datetime.now(),
+                'is_online': 1,
+                'fans_count': item['follow'],
+                'audience_count': item['view'],
+                'category_id': item['category_name'],
+                'source_id': self.source_id,
+            }
+            items.append(tmp)
+        return items
+
+
 if __name__ == '__main__':
-    #ZhanqiCrawl().run(count=100)
-    #PandaCrawl().run(count=100)
-    #DouyuCrawl().run(count=100)
-    #HuyaCrawl().run(count=100)
-    LongzhuCrawl().run(count=100)
+    # ZhanqiCrawl().run(count=100)
+    # PandaCrawl().run(count=100)
+    # DouyuCrawl().run(count=100)
+    # HuyaCrawl().run(count=100)
+    # LongzhuCrawl().run(count=100)
+    QuanminCrawl().run(count=100)

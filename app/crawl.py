@@ -6,6 +6,7 @@ from crawler.tv import ZhanqiCrawl
 from crawler.tv import DouyuCrawl
 from crawler.tv import LongzhuCrawl
 from crawler.tv import HuyaCrawl
+from crawler.tv import QuanminCrawl
 
 import sys
 
@@ -21,12 +22,15 @@ def main(_type):
         LongzhuCrawl().run(count=1000)
     elif _type == 'huya':
         HuyaCrawl().run(count=1000)
+    elif _type == 'quanmin':
+        QuanminCrawl().run(count=1000)
     else:
         ZhanqiCrawl().run(count=200)
         PandaCrawl().run(count=200)
         DouyuCrawl().run(count=200)
         LongzhuCrawl().run(count=200)
         HuyaCrawl().run(count=200)
+        QuanminCrawl().run(count=200)
 
 
 if __name__ == '__main__':
