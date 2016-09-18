@@ -23,10 +23,10 @@
     {% for row in handler.rows %}
     <a href="{{ row[0].room_site }}" target=_blank>
     <div id="{{ row.id }}" class="room row {{ bg_color(loop.index) }}">
-        <div class="avatar col-md-1 noleft">
+        <div class="avatar col-xs-1 col-md-1 noleft">
             <img data-src="holder.js/60x60" class="img-circle" alt="60x60" style="width: 60px; height: 60px;" src="{{ row[0].avatar }}" onerror="this.src='/static/img/avatar/default.jpg'" data-holder-rendered="true"/>
         </div>
-        <div class="col-md-10">
+        <div class="col-xs-10 col-md-10">
             <p class="title">{{ row[0].room_name | truncate(60) }}</p>
             <p class="tag">
                 <span class="label label-info">{{ row[0].anchor }}</span>
@@ -35,10 +35,10 @@
                 <span class="label label-warning">观众：{{ row[0].audience_count }}</span>
                 <span><img class="src_img" src="{{ row[2] }}"/></span>
             </p>
-    </div>
-    <div class="col-md-1 jump">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-    </div>
+        </div>
+    <!--div class="col-xs-1 col-md-1 jump">
+        <span class="glyphicon glyphicon-chevron-right right" aria-hidden="true"></span>
+    </div-->
     </a>
 </div>
 <div id="page" value="1"></div>
@@ -72,10 +72,10 @@
 [% for (var i = 0; i < o.data.length; i++) { %]
 <div id="[%=o.data[i].id%]" class="room row [%=o.data[i].bg_color%]">
     <a href="[%=o.data[i].room_site%]" target=_blank>
-    <div class="avatar col-md-1 noleft">
+    <div class="avatar col-xs-1 col-md-1 noleft">
         <img data-src="holder.js/60x60" class="img-circle" alt="60x60" style="width: 60px; height: 60px;" src="[%=o.data[i].avatar%]" onerror="this.src='/static/img/avatar/default.jpg'" data-holder-rendered="true"/>
     </div>
-    <div class="col-md-10">
+    <div class="col-xs-10 col-md-10">
         <p class="title">[%=o.data[i].room_name%]</p>
         <p class="tag">
             <span class="label label-info">[%=o.data[i].anchor%]</span>
@@ -85,9 +85,9 @@
             <span><img class="src_img" src="[%=o.data[i].source%]"/></span>
         </p>
     </div>
-    <div class="col-md-1 jump">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-    </div>
+    <!--div class="col-xs-1 col-md-1 jump">
+        <span class="glyphicon glyphicon-chevron-right right" aria-hidden="true"></span>
+    </div-->
     </a>
 </div>
 [% } %]

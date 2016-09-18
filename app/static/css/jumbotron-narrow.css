@@ -126,9 +126,17 @@ body {
   margin: 0px;
 }
 
+.row .avatar {
+  width: 50px;
+}
+
 .row .jump {
   margin-top: 20px;
   visibility: hidden;
+}
+
+.right {
+  float: right;
 }
 
 .title {
