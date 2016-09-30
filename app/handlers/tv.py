@@ -67,7 +67,8 @@ class List(BaseHandler):
 class Category(BaseHandler):
     def get(self):
         session = self.backend.get_session()
-        self.rows = session.query(TVCtg).order_by(TVCtg.count.desc()).all()
+        self.rows = session.query(TVCtg).filter(TVCtg.count > 0)\
+            .order_by(TVCtg.count.desc()).all()
         self.render('category.html')
 
 

@@ -25,12 +25,12 @@ def main(_type):
     elif _type == 'quanmin':
         QuanminCrawl().run(count=1000)
     else:
-        ZhanqiCrawl().run(count=200)
-        PandaCrawl().run(count=200)
-        DouyuCrawl().run(count=200)
-        LongzhuCrawl().run(count=200)
-        HuyaCrawl().run(count=200)
-        QuanminCrawl().run(count=200)
+        ZhanqiCrawl().run(count=100)
+        PandaCrawl().run(count=100)
+        DouyuCrawl().run(count=100)
+        LongzhuCrawl().run(count=100)
+        HuyaCrawl().run(count=100)
+        QuanminCrawl().run(count=100)
 
 
 if __name__ == '__main__':
