@@ -58,7 +58,8 @@ function next_page() {
 
             $.getJSON(url, params, function(json) {
                 if (json) {
-                    if (json.data) {
+                    if (json.data.length > 0) {
+                        console.log(123)
                         fill_page(json);
                         $('#page').attr('value', parseInt(page) + 1);
                         stop = false;

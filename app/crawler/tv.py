@@ -292,9 +292,9 @@ class QuanminCrawl(BaseCrawl):
 
 
 if __name__ == '__main__':
-    # ZhanqiCrawl().run(count=100)
+    ZhanqiCrawl().run(count=100)
     # PandaCrawl().run(count=100)
     # DouyuCrawl().run(count=100)
     # HuyaCrawl().run(count=100)
     # LongzhuCrawl().run(count=100)
-    QuanminCrawl().run(count=100)
+    # QuanminCrawl().run(count=100)
