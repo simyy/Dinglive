@@ -24,18 +24,18 @@
 
 {% block nav %}
     <li role="presentation" class=""><a href="#">在线</a></li>
-    <li role="presentation" class="active"><a href="/ctg">分类</a></li>
+    <li role="presentation" class="active"><a href="/cate">分类</a></li>
 {% endblock %}
 
 {% block content %}
-<div class="row marketing content">
+<div class="row marketing">
 	<table class="table ">
 		<tbody>
 			{% for i in range(0, handler.rows | length, 4) %}
 			<tr>
 				{% for j in range(4) %}
 					{% if i + j < handler.rows | length %}
-					<td style="border: 0px;"><a href="/ctg/{{ handler.rows[i + j].id }}" title="{{ handler.rows[i + j].name}}">{{ handler.rows[i + j].name | truncate(12) }} 
+					<td style="border: 0px;"><a href="/cate/{{ handler.rows[i + j].name }}" title="{{ handler.rows[i + j].name}}">{{ handler.rows[i + j].name | truncate(12) }} 
 					{% if handler.rows[i + j].count > 0 %}</a>
 					<span class="label {{ label_color(handler.rows[i + j].count) }}">{{ handler.rows[i + j].count }}</span>
 					{% endif %}

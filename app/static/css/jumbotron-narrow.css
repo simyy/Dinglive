@@ -1,10 +1,11 @@
 
-/*************导航栏******************/
+/* 背景 */
 body {
   padding-top: 50px;
   background: url(/static/img/bg.png) center top repeat;
 }
 
+/* 导航 */
 .navbar-default {
   background-color: rgba(91, 192, 222, 0.85);
   background-image: none;
@@ -26,41 +27,40 @@ body {
   color: white;
 }
 
-/************************************/
-
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-right: 15px;
-  padding-left: 15px;
-}
-
-/* Custom page header */
 .header {
   padding-bottom: 10px;
   border-bottom: 1px solid #e5e5e5;
 }
-/* Make the masthead heading the same height as the navigation */
+
 .header h3 {
   margin-top: 0;
   margin-bottom: 0;
   line-height: 40px;
 }
 
-/* Custom page footer */
+/* 底部 */
 .footer {
   padding-top: 19px;
   color: #777;
   border-top: 1px solid #e5e5e5;
 }
 
-/* Customize container */
-@media (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
+/* 有效区域 */
+.container {
+  min-width: 850px;
+  max-width: 850px;
 }
+
+.content {
+  padding-top: 30px;
+}
+
+/* 中间内容 */
+.content .row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
 .container-narrow > hr {
   margin: 30px 0;
 }
@@ -76,18 +76,11 @@ body {
   font-size: 18px;
 }
 
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-}
 .marketing p + h4 {
   margin-top: 28px;
 }
 
 .row {
-  margin-left: 5px;
-  margin-right: 5px;
-  margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 50px;
 }
@@ -134,13 +127,15 @@ body {
   height: 16px;
 }
 
+/* 精选 */
+.quality_header {
+  width: 80%;
+    margin: auto;
+}
+
 <!-- for loading -->
 svg path,
 svg rect{
   fill: #FF6700;
 }
 <!-- loading end -->
-
-.container {
-  width: 860px;
-}

@@ -8,6 +8,9 @@ $(function () {
         }
         window.location.href = '/search/' + str;
     });
+    $('.carousel').carousel({
+        interval: 2000
+    })
 });
 
 var stop = false;
@@ -19,9 +22,9 @@ function jump_tag() {
             $(this).css('border', '2px dashed #C3BDCC');
             $(this).css('transition', 'ease-out 0.1s');
             $(this).css('transform', 'scale(1.05)');
-            $(this).css('-ms-transform', 'scale(1.05)');
-            $(this).css('-moz-transform', 'scale(1.05)');
-            $(this).css('-webkit-transform', 'scale(1.05)');
+            $(this).css('-ms-transform', 'scale(1.02)');
+            $(this).css('-moz-transform', 'scale(1.02)');
+            $(this).css('-webkit-transform', 'scale(1.02)');
         },
         mouseout: function(e) {
             $(this).find('.jump').css('visibility', 'hidden');
@@ -41,11 +44,11 @@ function next_page() {
         if (scrollTop() + windowHeight() == documentHeight() && stop == false) {
             stop = true;
             load_start();
-            var pattern = new RegExp(".*\/ctg\/(.+)?");
+            var pattern = new RegExp(".*\/cate\/(.+)?");
             if (window.location.href.match(pattern) == null)
-                url = "/tv/ctg/0/list"
+                url = "/tv/cate/all/list"
             else
-                url = "/tv/ctg/" + window.location.href.match(pattern)[1] + "/list";
+                url = "/tv/cate/" + window.location.href.match(pattern)[1] + "/list";
 
             var params = {page: page};
 

@@ -19,7 +19,7 @@
     <p><a class="btn btn-lg btn-info" href="http://dinglive.com" role="button">刷新</a></p-->
 </div>
 {% endif %}
-<div class="row marketing content">
+<div class="row marketing">
     {% for row in handler.rows %}
     <a href="{{ row[0].room_site }}" target=_blank>
     <div id="{{ row.id }}" class="room row {{ bg_color(loop.index) }}">
