@@ -97,25 +97,28 @@ class DouyuCrawl(BaseCrawl):
         return super(DouyuCrawl, self).run(url, count=count)
 
     def _get_avatar_url(self, room_site):
-        print 'get avatar url:%s' % room_site
-        avatar = None
-        try:
-            html = self._get(room_site)
-            time.sleep(random.randrange(3))
-            if not html:
-                return None
-            soup = BeautifulSoup(html)
-            if soup.find('div', attrs={'class': 'anchor-pic'}) is None:
-                avatar = soup.find('img', attrs={'class': 'room_pic'})\
-                    .attrs['src']
-            else:
-                avatar = soup.find('div', attrs={'class': 'anchor-pic'})\
-                    .img.attrs['src']
-            if avatar:
-                return avatar
-        except Exception as e:
-            print e
+        # for not forbidden
         return 'http://apic.douyucdn.cn/upload/avatar/default/01_middle.jpg'
+
+        # print 'get avatar url:%s' % room_site
+        # avatar = None
+        # try:
+        #     html = self._get(room_site)
+        #     time.sleep(random.randrange(3))
+        #     if not html:
+        #         return None
+        #     soup = BeautifulSoup(html)
+        #     if soup.find('div', attrs={'class': 'anchor-pic'}) is None:
+        #         avatar = soup.find('img', attrs={'class': 'room_pic'})\
+        #             .attrs['src']
+        #     else:
+        #         avatar = soup.find('div', attrs={'class': 'anchor-pic'})\
+        #             .img.attrs['src']
+        #     if avatar:
+        #         return avatar
+        # except Exception as e:
+        #     print e
+        # return 'http://apic.douyucdn.cn/upload/avatar/default/01_middle.jpg'
 
     def parse(self, html):
         items = list()
