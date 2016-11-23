@@ -97,6 +97,7 @@ class DouyuCrawl(BaseCrawl):
         return super(DouyuCrawl, self).run(url, count=count)
 
     def _get_avatar_url(self, room_site):
+        default = 'http://apic.douyucdn.cn/upload/avatar/default/01_middle.jpg'
         # for not forbidden
         if random.randrange(100) < 50:
             return 'http://apic.douyucdn.cn/upload/avatar/default/01_middle.jpg'
@@ -107,7 +108,7 @@ class DouyuCrawl(BaseCrawl):
             html = self._get(room_site)
             time.sleep(random.randrange(3))
             if not html:
-                return None
+                return default
             soup = BeautifulSoup(html)
             if soup.find('div', attrs={'class': 'anchor-pic'}) is None:
                 avatar = soup.find('img', attrs={'class': 'room_pic'})\
@@ -119,7 +120,8 @@ class DouyuCrawl(BaseCrawl):
                 return avatar
         except Exception as e:
             print e
-        return 'http://apic.douyucdn.cn/upload/avatar/default/01_middle.jpg'
+        return default
+        #return 'http://apic.douyucdn.cn/upload/avatar/default/01_middle.jpg'
 
     def parse(self, html):
         items = list()
