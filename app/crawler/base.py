@@ -55,7 +55,7 @@ class BaseCrawl(WithBackend):
             page += 1
             tmp_url = url.format(page=page, size=size)
             res = self.load(tmp_url)
-            if len(res) == 0:
+            if not res or len(res) == 0:
                 break
             num += len(res)
             print 'load\turl:%s' % tmp_url
