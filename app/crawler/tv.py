@@ -198,14 +198,14 @@ class LongzhuCrawl(BaseCrawl):
         super(LongzhuCrawl, self).__init__(method='get')
 
     def run(self, count=300):
-        url = "http://api.plu.cn/tga/streams?max-results=150&\
+        url = "http://api.plu.cn/tga/streams?max-results=50&\
             start-index={start_index}&sort-by=views"
         result = list()
         start_index = 0
         num = 0
         while num < count:
             tmp_url = url.format(start_index=start_index)
-            start_index += 18
+            start_index += 50
             res = self.load(tmp_url)
             print 'load\turl:%s' % tmp_url
             if not res or len(res) == 0:
