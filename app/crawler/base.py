@@ -13,7 +13,7 @@ from models.tables import TVCtg
 
 def loadCtgDict():
     d = dict()
-    if os.path.exists('/ot/simtv/app'):
+    if os.path.exists('/opt/simtv/app'):
         fileName = '/opt/simtv/app/crawler/ctg.txt'
     else:
         fileName = 'crawler/ctg.txt'
