@@ -161,8 +161,7 @@ class HuyaCrawl(BaseCrawl):
         super(HuyaCrawl, self).__init__(method='get')
 
     def run(self, count=300):
-        url = "http://www.huya.com/cache.php?m=Live&\
-            do=ajaxAllLiveByPage&page={page}&pageNum=1"
+        url = "http://www.huya.com/cache.php?m=Live&do=ajaxAllLiveByPage&page={page}&pageNum=1"
         return super(HuyaCrawl, self).run(url, count=count)
 
     def parse(self, html):
@@ -199,7 +198,7 @@ class LongzhuCrawl(BaseCrawl):
         super(LongzhuCrawl, self).__init__(method='get')
 
     def run(self, count=300):
-        url = "http://api.plu.cn/tga/streams?max-results=18&\
+        url = "http://api.plu.cn/tga/streams?max-results=150&\
             start-index={start_index}&sort-by=views"
         result = list()
         start_index = 0
@@ -297,7 +296,7 @@ class QuanminCrawl(BaseCrawl):
 if __name__ == '__main__':
     # ZhanqiCrawl().run(count=100)
     # PandaCrawl().run(count=100)
-    DouyuCrawl().run(count=100)
-    # HuyaCrawl().run(count=100)
+    # DouyuCrawl().run(count=100)
+    HuyaCrawl().run(count=100)
     # LongzhuCrawl().run(count=100)
     # QuanminCrawl().run(count=100)

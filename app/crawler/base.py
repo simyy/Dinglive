@@ -71,7 +71,10 @@ class BaseCrawl(WithBackend):
         else:
             r = self._post(url, kwargs=kwargs)
         if r:
-            return self.parse(r)
+            try:
+                return self.parse(r)
+            except Exception as e:
+                print e
         return None
 
     def parse(self, html):
