@@ -98,27 +98,28 @@ class DouyuCrawl(BaseCrawl):
 
     def _get_avatar_url(self, room_site):
         # for not forbidden
-        return 'http://apic.douyucdn.cn/upload/avatar/default/01_middle.jpg'
+        if random.randrange(100) < 50:
+            return 'http://apic.douyucdn.cn/upload/avatar/default/01_middle.jpg'
 
-        # print 'get avatar url:%s' % room_site
-        # avatar = None
-        # try:
-        #     html = self._get(room_site)
-        #     time.sleep(random.randrange(3))
-        #     if not html:
-        #         return None
-        #     soup = BeautifulSoup(html)
-        #     if soup.find('div', attrs={'class': 'anchor-pic'}) is None:
-        #         avatar = soup.find('img', attrs={'class': 'room_pic'})\
-        #             .attrs['src']
-        #     else:
-        #         avatar = soup.find('div', attrs={'class': 'anchor-pic'})\
-        #             .img.attrs['src']
-        #     if avatar:
-        #         return avatar
-        # except Exception as e:
-        #     print e
-        # return 'http://apic.douyucdn.cn/upload/avatar/default/01_middle.jpg'
+        print 'get avatar url:%s' % room_site
+        avatar = None
+        try:
+            html = self._get(room_site)
+            time.sleep(random.randrange(3))
+            if not html:
+                return None
+            soup = BeautifulSoup(html)
+            if soup.find('div', attrs={'class': 'anchor-pic'}) is None:
+                avatar = soup.find('img', attrs={'class': 'room_pic'})\
+                    .attrs['src']
+            else:
+                avatar = soup.find('div', attrs={'class': 'anchor-pic'})\
+                    .img.attrs['src']
+            if avatar:
+                return avatar
+        except Exception as e:
+            print e
+        return 'http://apic.douyucdn.cn/upload/avatar/default/01_middle.jpg'
 
     def parse(self, html):
         items = list()
@@ -198,14 +199,14 @@ class LongzhuCrawl(BaseCrawl):
         super(LongzhuCrawl, self).__init__(method='get')
 
     def run(self, count=300):
-        url = "http://api.plu.cn/tga/streams?max-results=50&\
+        url = "http://api.plu.cn/tga/streams?max-results=18&\
             start-index={start_index}&sort-by=views"
         result = list()
         start_index = 0
         num = 0
         while num < count:
             tmp_url = url.format(start_index=start_index)
-            start_index += 50
+            start_index += 18
             res = self.load(tmp_url)
             print 'load\turl:%s' % tmp_url
             if not res or len(res) == 0:
