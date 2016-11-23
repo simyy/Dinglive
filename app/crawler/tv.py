@@ -93,7 +93,7 @@ class DouyuCrawl(BaseCrawl):
         super(DouyuCrawl, self).__init__(method='get')
 
     def run(self, count=300):
-        url = "http://www.douyu.com/directory/all?page={page}&isAjax=1"
+        url = "https://www.douyu.com/directory/all?page={page}&isAjax=1"
         return super(DouyuCrawl, self).run(url, count=count)
 
     def _get_avatar_url(self, room_site):
