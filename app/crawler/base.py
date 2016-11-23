@@ -101,7 +101,7 @@ class BaseCrawl(WithBackend):
 
 
     def _get(self, url, kwargs=None):
-        r = requests.get(url, headers=self.getRandomHeader())
+        r = requests.get(url, headers=self.getRandomHeader(), verify=False)
         if r.status_code == 200:
             return r.text
         return None
