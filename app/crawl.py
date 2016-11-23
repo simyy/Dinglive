@@ -13,17 +13,17 @@ import sys
 
 def main(_type):
     if _type == 'zhanqi':
-        ZhanqiCrawl().run(count=1000)
+        ZhanqiCrawl().run(count=500)
     elif _type == 'panda':
-        PandaCrawl().run(count=1000)
+        PandaCrawl().run(count=500)
     elif _type == 'douyu':
-        DouyuCrawl().run(count=1000)
+        DouyuCrawl().run(count=500)
     elif _type == 'longzhu':
-        LongzhuCrawl().run(count=1000)
+        LongzhuCrawl().run(count=500)
     elif _type == 'huya':
-        HuyaCrawl().run(count=1000)
+        HuyaCrawl().run(count=500)
     elif _type == 'quanmin':
-        QuanminCrawl().run(count=1000)
+        QuanminCrawl().run(count=500)
     else:
         DouyuCrawl().run(count=20)
         ZhanqiCrawl().run(count=50)
