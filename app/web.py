@@ -23,6 +23,7 @@ handlers = [
     (r'/cate', tv.Cate),
     (r'/quality', tv.QualityIndex),
     (r'/cate/(.+)', tv.CateIndex),
+    (r'/room/', tv.RoomIndex),
     (r'/search/(.+)', tv.SearchIndex),
 ]
 

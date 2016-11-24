@@ -86,6 +86,12 @@ class QualityIndex(BaseHandler):
         self.render('quality.html')
 
 
+class RoomIndex(BaseHandler):
+    def get(self):
+        self.src = self.get_argument('src')
+        self.render('room.html')
+
+
 class SearchIndex(BaseHandler):
     def get(self, searchStr):
         session = self.backend.get_session()

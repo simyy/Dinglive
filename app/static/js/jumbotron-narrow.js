@@ -21,7 +21,7 @@ function jump_tag() {
             $(this).find('.jump').css('visibility', 'visible');
             $(this).css('border', '2px dashed #C3BDCC');
             $(this).css('transition', 'ease-out 0.1s');
-            $(this).css('transform', 'scale(1.05)');
+            $(this).css('transform', 'scale(1.02)');
             $(this).css('-ms-transform', 'scale(1.02)');
             $(this).css('-moz-transform', 'scale(1.02)');
             $(this).css('-webkit-transform', 'scale(1.02)');
