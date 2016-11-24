@@ -55,6 +55,20 @@ body {
   padding-top: 30px;
 }
 
+/* game列表 */
+.game-list {
+  position: fixed;
+  top: 100px;
+}
+
+.game-list img {
+  width: 140px;
+}
+
+.game-row {
+  padding-bottom: 5px;
+}
+
 /* 中间内容 */
 .content .row {
   width: 600px;
