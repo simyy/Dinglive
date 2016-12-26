@@ -7,6 +7,7 @@ from crawler.tv import DouyuCrawl
 from crawler.tv import LongzhuCrawl
 from crawler.tv import HuyaCrawl
 from crawler.tv import QuanminCrawl
+from crawler.tv import HuomaoCrawl
 
 import sys
 
@@ -24,6 +25,8 @@ def main(_type):
         HuyaCrawl().run(count=500)
     elif _type == 'quanmin':
         QuanminCrawl().run(count=500)
+    elif _type == 'huomao':
+        HuomaoCrawl().run(count=500)
     else:
         DouyuCrawl().run(count=20)
         ZhanqiCrawl().run(count=50)
