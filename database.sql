@@ -46,4 +46,5 @@ INSERT INTO `tv_source` (`id`, `name`, `pic`, `url`) VALUES
     (3, '斗鱼', '/static/img/favicon/douyu.ico', 'www.douyu.com'),
     (4, '虎牙', '/static/img/favicon/huya.ico', 'www.huya.com'),
     (5, '龙珠', '/static/img/favicon/longzhu.ico', 'www.longzhu.com'),
-    (6, '全民', '/static/img/favicon/quanmin.ico', 'www.quanmin.com');
+    (6, '全民', '/static/img/favicon/quanmin.ico', 'www.quanmin.com'),
+    (7, '火猫', '/static/img/favicon/huomao.ico', 'www.huomao.com');
