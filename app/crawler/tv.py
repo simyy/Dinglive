@@ -55,8 +55,7 @@ class PandaCrawl(BaseCrawl):
         super(PandaCrawl, self).__init__(method='get')
 
     def run(self, count=300):
-        url = "http://www.panda.tv/live_lists?status=2&\
-                order=person_num&pageno={page}&pagenum={size}"
+        url = "http://www.panda.tv/live_lists?status=2&order=person_num&pageno={page}&pagenum={size}"
         return super(PandaCrawl, self).run(url, count=count)
 
     def parse(self, html):
@@ -121,7 +120,7 @@ class DouyuCrawl(BaseCrawl):
         except Exception as e:
             print e
         return default
-        #return 'http://apic.douyucdn.cn/upload/avatar/default/01_middle.jpg'
+        # return 'http://apic.douyucdn.cn/upload/avatar/default/01_middle.jpg'
 
     def parse(self, html):
         items = list()
@@ -138,8 +137,7 @@ class DouyuCrawl(BaseCrawl):
                 audience_count = float(audience_count[:-1]) * 10000
             avatar = None
             if room_id == '641634':
-                avatar = "http://apic.douyucdn.cn/upload/avatar/face/\
-                    201606/25/f96b638d35af3ee7c31129e80da97236_middle.jpg"
+                avatar = "http://apic.douyucdn.cn/upload/avatar/face/201606/25/f96b638d35af3ee7c31129e80da97236_middle.jpg"
             items.append({
                 'anchor': anchor,
                 'avatar': avatar,
@@ -201,8 +199,7 @@ class LongzhuCrawl(BaseCrawl):
         super(LongzhuCrawl, self).__init__(method='get')
 
     def run(self, count=300):
-        url = "http://api.plu.cn/tga/streams?max-results=18&\
-            start-index={start_index}&sort-by=views"
+        url = "http://api.plu.cn/tga/streams?max-results=18&start-index={start_index}&sort-by=views"
         result = list()
         start_index = 0
         num = 0
@@ -296,10 +293,55 @@ class QuanminCrawl(BaseCrawl):
         return items
 
 
+class HuomaoCrawl(BaseCrawl):
+    source_id = 7
+    name = '火猫直播'
+
+    def __init__(self):
+        super(HuomaoCrawl, self).__init__(method='get')
+
+    def _get_avatar_url(self, room_site):
+        return "http://www.huomao.com/static/web/images/default_headimg/default_head_normal.jpg"
+
+    def parse(self, html):
+        json_doc = json.loads(html)
+        if 'data' not in json_doc:
+            return None
+        items = list()
+        for item in json_doc['data']['channelList']:
+            audience_count = item['views']
+            if audience_count[-1] == u'万' or audience_count[-1] == '万':
+                audience_count = float(audience_count[:-1]) * 10000
+            elif "," in audience_count:
+                audience_count = int(audience_count.replace(",", ""))
+            else:
+                audience_count = int(audience_count)
+            tmp = {
+                'anchor': item['nickname'],
+                'avatar': self._get_avatar_url(""),
+                'room_id': item['room_number'],
+                'room_name': item['channel'],
+                'room_site': "http://www.huomao.com/%s" % item['room_number'],
+                'update_time': datetime.now(),
+                'is_online': 1,
+                'fans_count': 0,
+                'audience_count': audience_count,
+                'category_id': item['gameCname'],
+                'source_id': self.source_id,
+            }
+            items.append(tmp)
+        return items
+
+    def run(self, count=300):
+        url = "http://www.huomao.com/channels/channel.json?page={page}&page_size=120&game_url_rule=all"
+        return super(HuomaoCrawl, self).run(url, count=count)
+
+
 if __name__ == '__main__':
     # ZhanqiCrawl().run(count=100)
     # PandaCrawl().run(count=100)
     # DouyuCrawl().run(count=100)
-    HuyaCrawl().run(count=100)
+    # HuyaCrawl().run(count=100)
     # LongzhuCrawl().run(count=100)
     # QuanminCrawl().run(count=100)
+    HuomaoCrawl().run(count=100)
