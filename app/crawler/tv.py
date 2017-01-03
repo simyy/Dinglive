@@ -96,10 +96,7 @@ class DouyuCrawl(BaseCrawl):
         return super(DouyuCrawl, self).run(url, count=count)
 
     def _get_avatar_url(self, room_site):
-        default = 'http://apic.douyucdn.cn/upload/avatar/default/01_middle.jpg'
-        # for not forbidden
-        if random.randrange(100) < 50:
-            return 'http://apic.douyucdn.cn/upload/avatar/default/01_middle.jpg'
+        return 'http://apic.douyucdn.cn/upload/avatar/default/01_middle.jpg'
 
         print 'get avatar url:%s' % room_site
         avatar = None

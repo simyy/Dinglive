@@ -36,6 +36,8 @@ CREATE TABLE `tv_category` (
       `name` varchar(32) NOT NULL COMMENT '分类名称',
       `pic` varchar(256) NULL COMMENT '图片位置',
       `count` int(11) NULL DEFAULT 0 COMMENT '总数',
+      `sort` int(11) NULL DEFAULT 0 COMMENT '排序',
+      `cate` varchar(4) NOT NULL COMMENT '大体分类',
       PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

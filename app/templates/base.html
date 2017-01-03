@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=800px, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!--meta name="viewport" content="width=device-width, initial-scale=1"-->
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>{% block title %}叮直播{% endblock %}</title>
     <meta name="description" content="叮直播 - 直播导航平台提供快捷、及时的视频直播导航和分类，内容涵盖斗鱼、虎牙、熊猫、战旗、龙珠等热门直播内容，其中包含穿越火线、dota2/美女直播等内容。">
@@ -12,10 +12,8 @@
     <link rel="icon" href="/static/favicon.ico">
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
-    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <!-- Custom styles for this template -->
-    <link href="/static/css/jumbotron-narrow.css" rel="stylesheet">
+    <link href="/static/css/self.css" rel="stylesheet">
     {% block css %}{% endblock %}
 </head> 
 <body>
@@ -29,15 +27,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">叮直播</a>
+          <a class="navbar-brand" href="/"><img src="/static/img/logo.png"/></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="/">热门</a></li>
-            <!--li><a href="/quality">精选</a></li-->
-            <li><a href="/cate">分类</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-left">
             <li>
                 <div class="navbar-form navbar-left" role="search">
                     <div class="form-group">
@@ -47,28 +40,65 @@
                 </form>
             </li>
           </ul>
+          <ul class="nav navbar-nav">
+            <!--li><a href="/">热门</a></li-->
+            <!--li><a href="/quality">精选</a></li-->
+            <!--li><a href="/cate">分类</a></li-->
+          </ul>
         </div>
       </div>
     </nav>
     {% endblock %}
-    <div class="container">
-        <div class="content row">
-            {% block content %}{% endblock %}
+    <div class="content container">
+    {% block content%}
+      <div class="content-left">
+      {%block content_left %}
+      {% for row in handler.cates %}
+        <div class="left-cate {{ row.class }}">
+            <a href="{{ row.href }}">
+            {{ row.img  }}
+            <span class="left-cate-span">{{ row.text }}</span>
+          </a>
         </div>
-        {% block footer %}
-        <footer class="footer">
-            <p>© Copyright 2016</p>
-        </footer>
-        {% endblock %}
-    </div>
-    {% block game %}
-        <div>
-            <!--div class="game-row">
-                <a href="http://star.longzhu.com/nsl?from=fimaxmatch2"><img src="static/img/nizhan.png"/></a>
-            </div-->
+      {% endfor %}
+        <div class="left-cate">
+            <a href="/cate">
+            <img src="/static/img/More.png"/>
+            <span class="left-cate-span">更多分类</span>
+          </a>
         </div>
+      {% endblock %}
+      </div>
+      <div class="content-center">
+      {% block content_center %}{% endblock %}
+      </div>
+      <div class="content-right">
+      {%block content_right %}
+        <div class="content-right">
+          {#
+          <div class="right-rcmd">
+              <img src="/static/img/favicon/panda.ico">
+              <span>伍声2009</span>
+          </div>
+          #}
+        </div>
+      {% endblock %}
+      </div>
     {% endblock %}
+    </div>
+    <div class="container">
+      {% block footer %}
+      <footer class="footer">
+        <p>© Copyright 2016</p>
+      </footer>
+      {% endblock %}
+    </div>
     {% block javascript %}{% endblock %}
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/static/js/jquery.goup.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="/static/js/tmpl.min.js"></script>
+    <script src="/static/js/self.js"></script>
     <script>
         var _hmt = _hmt || [];
         (function() {
@@ -79,14 +109,5 @@
         
         })();
     </script>
-
-    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <!-- 模板tmpl -->
-    <script src="/static/js/tmpl.min.js"></script>
-    <!-- 自定义js -->
-    <script src="/static/js/jumbotron-narrow.js"></script>
 </body>
 </html>

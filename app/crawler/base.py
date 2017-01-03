@@ -20,14 +20,17 @@ def loadCtgDict():
     with open(fileName) as f:
         lines = f.readlines()
         lines = filter(
-            lambda x: x.startswith('#') is False or len(x.strip()) > 0, lines)
+            lambda x: x.startswith('#') is False and len(x.strip()) > 0, lines)
         lines = map(lambda x: x.strip().decode('utf8'), lines)
         for line in lines:
-            items = line.split('|')
-            if len(items) == 2:
-                d[items[0]] = items[1]
+            items = line.split('=')
+            cate = items[0]
+            sort = int(items[1])
+            mapping = items[2].split("|")
+            if len(mapping) == 2:
+                d[mapping[0]] = [mapping[1], cate, sort]
             else:
-                d[items[0]] = items[0]
+                d[mapping[0]] = [mapping[0], cate, sort]
         return d
 
 
@@ -99,7 +102,6 @@ class BaseCrawl(WithBackend):
         ]
         return {"User-Agent": header[random.randrange(0, len(header))]}
 
-
     def _get(self, url, kwargs=None):
         r = requests.get(url, headers=self.getRandomHeader(), verify=False)
         if r.status_code == 200:
@@ -117,14 +119,16 @@ class BaseCrawl(WithBackend):
         session = self.backend.get_session()
         for item in items:
             if item['category_id'] in CTG_DICT:
-                item['category_id'] = CTG_DICT.get(item['category_id'])
+                item['category_id'] = CTG_DICT.get(item['category_id'])[0]
             else:
                 item['category_id'] = u'大杂烩'
             ctg_id = ctg_dict.get(item['category_id'], None)
             if ctg_id:
                 item['category_id'] = ctg_id
             else:
-                tvctg = TVCtg(name=item['category_id'])
+                cate = CTG_DICT.get(item['category_id'])[1]
+                sort = CTG_DICT.get(item['category_id'])[2]
+                tvctg = TVCtg(name=item['category_id'], cate=cate, sort=sort)
                 session.add(tvctg)
                 session.commit()
                 ctg_dict[item['category_id']] = tvctg.id

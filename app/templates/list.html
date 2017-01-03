@@ -12,7 +12,7 @@
     {% endif %}
 {%- endmacro %}
 
-{% block content %}
+{% block content_center %}
 {% if handler.rows | length == 0 %}
 <div class="jumbotron">
     <h2>暂时无直播</h2>
@@ -27,11 +27,9 @@
             <img data-src="holder.js/60x60" class="img-circle" alt="60x60" style="width: 60px; height: 60px;" src="{{ row[0].avatar }}" onerror="this.src='/static/img/avatar/default.jpg'" data-holder-rendered="true"/>
         </div>
         <div class="col-xs-10 col-md-10">
-            <p class="title">{{ row[0].room_name | truncate(60) }}</p>
+            <p class="title">{{ "%s - %s"|format(row[0].anchor, row[0].room_name)}}</p>
             <p class="tag">
-                <span class="label label-info">{{ row[0].anchor }}</span>
-                <span class="label label-success">{{ row[1] }}</span>
-                <!--span class="label label-warning">粉丝：{{ row[0].fans_count }}</span-->
+                <span class="label label-default">{{ row[1] }}</span>
                 <span class="label label-warning">观众：{{ row[0].audience_count }}</span>
                 <span><img class="src_img" src="{{ row[2] }}"/></span>
             </p>
@@ -76,11 +74,9 @@
         <img data-src="holder.js/60x60" class="img-circle" alt="60x60" style="width: 60px; height: 60px;" src="[%=o.data[i].avatar%]" onerror="this.src='/static/img/avatar/default.jpg'" data-holder-rendered="true"/>
     </div>
     <div class="col-xs-10 col-md-10">
-        <p class="title">[%=o.data[i].room_name%]</p>
+        <p class="title">[%=o.data[i].room_anchor%] - [%=o.data[i].room_name%]</p>
         <p class="tag">
-            <span class="label label-info">[%=o.data[i].anchor%]</span>
-            <span class="label label-success">[%=o.data[i].category%]</span>
-            <!--span class="label label-warning">粉丝：[%=o.data[i].fans_count%]</span-->
+            <span class="label label-default">[%=o.data[i].category%]</span>
             <span class="label label-warning">观众：[%=o.data[i].audience_count%]</span>
             <span><img class="src_img" src="[%=o.data[i].source%]"/></span>
         </p>

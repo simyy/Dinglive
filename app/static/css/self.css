@@ -1,0 +1,258 @@
+
+/************************ 背景 ************************/
+body {
+  padding-top: 50px;
+  background: url(/static/img/bg.png) center top repeat;
+}
+
+#scroll-top {
+    position:fixed;
+    bottom:50px;
+    right:50px;
+}
+
+/************************ 导航 ************************/
+.navbar-default {
+    background-color: white;
+    background-image: none;
+    height: 75px;
+    box-shadow: 9px 3px 25px rgba(0,0,0,.25);
+}
+
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a {
+  color: white;
+}
+
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+  color: #FEF3D7;
+}
+
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand{
+  color: white;
+}
+
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
+  color: white;
+}
+
+.navbar-brand {
+    padding-top: 0px;
+}
+
+.navbar-brand img {
+    height: 70px;
+}
+
+.navbar .navbar-form {
+    padding-top: 10px;
+}
+
+.navbar-form button {
+    border: 0px;
+    border-radius: 0px;
+}
+
+#searchStr {
+    width:400px;
+    border: none;
+    box-shadow: none;
+    border-bottom: 1px solid #f0ad4e;
+    border-radius: 0px;
+    margin-right: 10px;
+}
+
+.header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+}
+
+/************************ 底部 ************************/
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+/****************** 头部和底部有效区域 ******************/
+.container {
+  min-width: 900px;
+  max-width: 900px;
+}
+
+/********************** 页面内容 ***********************/
+.content {
+    margin-top: 40px;
+}
+
+/********************** 内容区域 ***********************/
+.content-center {
+  float: left;
+  width: 460px;
+  margin-bottom: 10px;
+  padding: 0 30px 0 30px;
+  margin-left: 200px;
+}
+
+.content-left {
+  top: 100px;
+  width: 140px;
+  position: fixed;
+  margin-left: 30px;
+}
+
+.content-right {
+  float: left;
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+/********************** 左侧分类 ***********************/
+.left-cate {
+    font-size: 16px;
+    padding-left: 10px;
+    margin-bottom: 5px;
+    padding: 10px 10px 10px 10px;
+}
+
+.content-left .active {
+    background-color: hsla(0,0%,87%,.2);
+    border-radius: 25px;
+}
+
+.left-cate:hover {
+    background-color: hsla(0,0%,87%,.2);
+    border-radius: 25px;
+}
+
+.left-cate img {
+    width: 25px;
+    height: 25px;
+}
+
+.left-cate span {
+    color: #9E9E9E;
+}
+
+.left-cate-span {
+    padding-left: 5px;
+}
+
+/************************* 分类************************/
+.cate a {
+    font-size: 16px;
+    color: #555;
+}
+
+.cate h1 {
+    border-bottom: 1px solid rgba(0,0,0,.075);
+    padding-bottom: 14px;
+    color: #999999;
+    font-size: 25px;
+}
+
+.cate {
+    background-color: white;
+    padding: 10px 0px 10px 64px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+/************************ 详情页 **********************/
+.room-tmp {
+    padding-top: 25px;
+}
+
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+.marketing p + h4 {
+  margin-top: 28px;
+}
+
+.marketing .title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.row {
+  margin-bottom: 10px;
+  border-radius: 50px;
+}
+
+.row .noleft {
+  padding-left: 0px;
+}
+
+.row .title {
+  font-size: 15px;
+  margin-top: 7px;
+  margin-bottom: 5px;
+}
+
+.row .tag {
+  font-size: 13px;
+  margin: 0px;
+}
+
+.row .avatar {
+  width: 50px;
+}
+
+.row .jump {
+  margin-top: 20px;
+  visibility: hidden;
+}
+
+.right {
+  float: right;
+}
+
+.title {
+  font-family: fantasy;
+  font-size: 30px;
+}
+
+.title font {
+  font-size: 20px;
+}
+
+.src_img {
+  width: 16px;
+  height: 16px;
+}
+
+/* 精选 */
+.quality_header {
+  width: 80%;
+    margin: auto;
+}
+
+<!-- for loading -->
+svg path,
+svg rect{
+  fill: #FF6700;
+}
+<!-- loading end -->
+
+/****************** 公共 *********************/
+a:link, a:visited{
+    text-decoration:none;  /*超链接无下划线*/
+}
+a:hover{
+    text-decoration:none;  /*鼠标放无下划线*/
+}
+
+input:focus {  
+    outline: none;  
+    border-color: #cfdc00;  
+    box-shadow: 0 0 5px rgba(207, 220, 0, 0.4);  
+    border-radius: 5px;  
+} 

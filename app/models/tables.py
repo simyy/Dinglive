@@ -44,6 +44,8 @@ class TVCtg(Base):
     name = Column(VARCHAR(32))
     pic = Column(VARCHAR(256))
     count = Column(Integer)
+    sort = Column(Integer)
+    cate = Column(VARCHAR(128))
 
 
 class TVSrc(Base):
