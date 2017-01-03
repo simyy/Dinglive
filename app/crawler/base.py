@@ -118,9 +118,7 @@ class BaseCrawl(WithBackend):
         ctg_dict = self._get_ctgs()
         session = self.backend.get_session()
         for item in items:
-            if item['category_id'] in CTG_DICT:
-                item['category_id'] = CTG_DICT.get(item['category_id'])[0]
-            else:
+            if item['category_id'] not in CTG_DICT:
                 item['category_id'] = u'大杂烩'
             ctg_id = ctg_dict.get(item['category_id'], None)
             if ctg_id:
