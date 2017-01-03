@@ -133,8 +133,6 @@ class DouyuCrawl(BaseCrawl):
             if audience_count[-1] == u'万' or audience_count[-1] == '万':
                 audience_count = float(audience_count[:-1]) * 10000
             avatar = None
-            if room_id == '641634':
-                avatar = "http://apic.douyucdn.cn/upload/avatar/face/201606/25/f96b638d35af3ee7c31129e80da97236_middle.jpg"
             items.append({
                 'anchor': anchor,
                 'avatar': avatar,
@@ -196,13 +194,13 @@ class LongzhuCrawl(BaseCrawl):
         super(LongzhuCrawl, self).__init__(method='get')
 
     def run(self, count=300):
-        url = "http://api.plu.cn/tga/streams?max-results=18&start-index={start_index}&sort-by=views"
+        url = "http://api.plu.cn/tga/streams?max-results=120&start-index={start_index}&sort-by=views"
         result = list()
         start_index = 0
         num = 0
         while num < count:
             tmp_url = url.format(start_index=start_index)
-            start_index += 18
+            start_index += 120
             res = self.load(tmp_url)
             print 'load\turl:%s' % tmp_url
             if not res or len(res) == 0:
