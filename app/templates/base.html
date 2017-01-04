@@ -52,15 +52,15 @@
     <div class="content container">
     {% block content%}
       <div class="content-left">
-      {%block content_left %}
-      {% for row in handler.cates %}
-        <div class="left-cate {{ row.class }}">
-            <a href="{{ row.href }}">
-            {{ row.img  }}
-            <span class="left-cate-span">{{ row.text }}</span>
+      {% block content_left %}
+        {% for cate in handler.cates %}
+        <div class="left-cate {{ cate.class }}">
+            <a href="{{ cate["href"] }}">
+            {{ cate["img"] }}
+            <span class="left-cate-span">{{ cate["text"] }}</span>
           </a>
         </div>
-      {% endfor %}
+        {% endfor %}
         <div class="left-cate">
             <a href="/cate">
             <img src="/static/img/More.png"/>
@@ -73,26 +73,24 @@
       {% block content_center %}{% endblock %}
       </div>
       <div class="content-right">
-      {%block content_right %}
+      {#%block content_right %}
         <div class="content-right">
-          {#
           <div class="right-rcmd">
               <img src="/static/img/favicon/panda.ico">
               <span>伍声2009</span>
           </div>
-          #}
         </div>
-      {% endblock %}
+      {% endblock %#}
       </div>
     {% endblock %}
     </div>
-    <div class="container">
-      {% block footer %}
-      <footer class="footer">
-        <p>© Copyright 2016</p>
+    {#% block footer %}
+    <div class="fixed-footer">
+      <footer class="footer container">
+          <span>© 2017</span>
       </footer>
-      {% endblock %}
     </div>
+    {% endblock %#}
     {% block javascript %}{% endblock %}
     <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <script src="/static/js/jquery.goup.min.js"></script>

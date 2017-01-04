@@ -27,7 +27,7 @@
             <img data-src="holder.js/60x60" class="img-circle" alt="60x60" style="width: 60px; height: 60px;" src="{{ row[0].avatar }}" onerror="this.src='/static/img/avatar/default.jpg'" data-holder-rendered="true"/>
         </div>
         <div class="col-xs-10 col-md-10">
-            <p class="title">{{ "%s - %s"|format(row[0].anchor, row[0].room_name)}}</p>
+            <p class="title">{{ row[0].anchor }} - {{ row[0].room_name }}</p>
             <p class="tag">
                 <span class="label label-default">{{ row[1] }}</span>
                 <span class="label label-warning">观众：{{ row[0].audience_count }}</span>
@@ -74,7 +74,7 @@
         <img data-src="holder.js/60x60" class="img-circle" alt="60x60" style="width: 60px; height: 60px;" src="[%=o.data[i].avatar%]" onerror="this.src='/static/img/avatar/default.jpg'" data-holder-rendered="true"/>
     </div>
     <div class="col-xs-10 col-md-10">
-        <p class="title">[%=o.data[i].room_anchor%] - [%=o.data[i].room_name%]</p>
+        <p class="title">[%=o.data[i].anchor%] - [%=o.data[i].room_name%]</p>
         <p class="tag">
             <span class="label label-default">[%=o.data[i].category%]</span>
             <span class="label label-warning">观众：[%=o.data[i].audience_count%]</span>

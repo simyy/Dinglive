@@ -19,9 +19,14 @@ cates = [
     {"class": "", "img": '<img src="/static/img/Home.png"/>', "href": u"/", "text": u"全部"},
     {"class": "", "img": '<img src="/static/img/L_Letter.png"/>', "href": u"/cate/英雄联盟", "text": u"英雄联盟"},
     {"class": "", "img": '<img src="/static/img/D_Letter.png"/>', "href": u"/cate/DOTA", "text": "DOTA"},
+    {"class": "", "img": '<img src="/static/img/W_Letter.png"/>', "href": u"/cate/王者荣耀", "text": u"王者荣耀"},
     {"class": "", "img": '<img src="/static/img/S_Letter.png"/>', "href": u"/cate/守望先锋", "text": u"守望先锋"},
+    {"class": "", "img": '<img src="/static/img/L_Letter.png"/>', "href": u"/cate/炉石传说", "text": u"炉石传说"},
     {"class": "", "img": '<img src="/static/img/C_Letter.png"/>', "href": u"/cate/穿越火线", "text": u"穿越火线"},
-    {"class": "", "img": '<img src="/static/img/P_Letter.png"/>', "href": u"/cate/跑跑卡丁车", "text": u"跑跑卡丁车"}]
+    {"class": "", "img": '<img src="/static/img/P_Letter.png"/>', "href": u"/cate/跑跑卡丁车", "text": u"跑跑卡丁车"},
+    {"class": "", "img": '<img src="/static/img/Y_Letter.png"/>', "href": u"/cate/娱乐天地", "text": u"娱乐天地"},
+    {"class": "", "img": '<img src="/static/img/Y_Letter.png"/>', "href": u"/cate/游戏放映室", "text": u"游戏放映室"},
+    {"class": "", "img": '<img src="/static/img/H_Letter.png"/>', "href": u"/cate/户外直播", "text": u"户外直播"}]
 
 
 class Index(BaseHandler):
