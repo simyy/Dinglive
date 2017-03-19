@@ -10,7 +10,6 @@ import tornado.web
 import tornado.httpclient
 from tornado.options import define, options
 
-from handlers.hello import HelloHandler
 from handlers import tv
 from core.base import JinjaLoader
 from core.base import BaseHandler
@@ -19,11 +18,12 @@ from core.base import BaseHandler
 define('port', default=4000, help="server port", type=int)
 
 handlers = [
-    (r'/hello', HelloHandler),
     (r'/', tv.Index),
-    (r'/tv/ctg/([0-9]+)/list', tv.List),
-    (r'/ctg', tv.Category),
-    (r'/ctg/([0-9]+)', tv.CategoryIndex),
+    (r'/tv/cate/(.+)/list', tv.ListAjax),
+    (r'/cate', tv.Cate),
+    (r'/quality', tv.QualityIndex),
+    (r'/cate/(.+)', tv.CateIndex),
+    (r'/room/', tv.RoomIndex),
     (r'/search/(.+)', tv.SearchIndex),
 ]
 

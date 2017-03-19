@@ -36,6 +36,8 @@ CREATE TABLE `tv_category` (
       `name` varchar(32) NOT NULL COMMENT '分类名称',
       `pic` varchar(256) NULL COMMENT '图片位置',
       `count` int(11) NULL DEFAULT 0 COMMENT '总数',
+      `sort` int(11) NULL DEFAULT 0 COMMENT '排序',
+      `cate` varchar(4) NOT NULL COMMENT '大体分类',
       PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -45,4 +47,6 @@ INSERT INTO `tv_source` (`id`, `name`, `pic`, `url`) VALUES
     (2, '熊猫', '/static/img/favicon/panda.ico', 'www.panda.tv'),
     (3, '斗鱼', '/static/img/favicon/douyu.ico', 'www.douyu.com'),
     (4, '虎牙', '/static/img/favicon/huya.ico', 'www.huya.com'),
-    (5, '龙珠', '/static/img/favicon/longzhu.ico', 'www.longzhu.com');
+    (5, '龙珠', '/static/img/favicon/longzhu.ico', 'www.longzhu.com'),
+    (6, '全民', '/static/img/favicon/quanmin.ico', 'www.quanmin.com'),
+    (7, '火猫', '/static/img/favicon/huomao.ico', 'www.huomao.com');
