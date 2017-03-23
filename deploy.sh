@@ -1,1 +1,1 @@
-supervisorctl -c /opt/dinglive/supervisord.conf
+supervisord -c /opt/dinglive/supervisord.conf
