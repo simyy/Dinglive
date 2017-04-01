@@ -1,5 +1,0 @@
-requests-2.11.0
-tornado-4.4.1
-beautifulsoup4-4.5.1
-sqlalchemy-1.0.14
-jinja2-2.8

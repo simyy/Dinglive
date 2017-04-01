@@ -1,0 +1,7 @@
+Fabric==1.13.1
+Jinja2==2.8
+requests==2.10.0
+SQLAlchemy==1.0.14
+tornado==4.4
+beautifulsoup4==4.5.3
+supervisor==3.3.1
