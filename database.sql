@@ -1,3 +1,7 @@
+CREATE DATABASE dinglive;
+
+use dinglive;
+
 drop table if exists `tv`;
 drop table if exists `tv_source`;
 drop table if exists `tv_category`;
@@ -41,7 +45,9 @@ CREATE TABLE `tv_category` (
       PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 ########################### Insert #######################################
+
 INSERT INTO `tv_source` (`id`, `name`, `pic`, `url`) VALUES
     (1, '战旗', '/static/img/favicon/zhanqi.ico', 'www.zhanqi.tv'),
     (2, '熊猫', '/static/img/favicon/panda.ico', 'www.panda.tv'),
