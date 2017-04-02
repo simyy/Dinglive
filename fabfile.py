@@ -21,7 +21,7 @@ def deploy():
     # 创建运行空间, 更新代码
     print(yellow('-> 清理空间'))
     run('rm -rf /opt/dinglive')
-    run('rm -rf /opt/logs')
+    run('rm -rf /opt/logs/dinglive')
     print(yellow('-> 创建空间'))
     run('mkdir -p /opt/logs/dinglive')
     print(yellow('-> 同步代码'))
