@@ -15,10 +15,13 @@ env.roledefs = {
 
 
 @roles('remote')
-def deploy(branch):
+def deploy():
     '''部署'''
     print(green('开始部署'))
     # 创建运行空间, 更新代码
+    print(yellow('-> 清理空间'))
+    run('rm -rf /opt/dinglive')
+    run('rm -rf /opt/logs')
     print(yellow('-> 创建空间'))
     run('mkdir -p /opt/logs/dinglive')
     print(yellow('-> 同步代码'))
@@ -26,8 +29,8 @@ def deploy(branch):
         run('git clone https://github.com/simyy/dinglive.git')
     # 启动nginx
     print(yellow('-> 启动nginx'))
-    run('mv /opt/dinglive/nginx.conf /etc/nginx/nginx.conf')
-    run('nginx -s start')
+    run('nginx -s stop')
+    run('nginx -c /opt/dinglive/nginx.conf')
     # 启动mysql
     print(yellow('-> 启动mysql'))
     run('service mysql start')
@@ -61,7 +64,6 @@ def restart(cmd='all'):
         run('supervisorctl restart dinglive')
     if cmd == 'all' or cmd == 'nginx':
         print(yellow('-> 重启nginx'))
-        run('mv /opt/dinglive/nginx.conf /etc/nginx/nginx.conf')
         run('nginx -s reload')
     print(green('完成重启'))
 
