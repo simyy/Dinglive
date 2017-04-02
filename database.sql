@@ -1,4 +1,4 @@
-CREATE DATABASE dinglive;
+CREATE DATABASE if not EXISTS dinglive;
 
 use dinglive;
 
