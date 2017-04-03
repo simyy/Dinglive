@@ -27,6 +27,9 @@ def deploy():
     print(yellow('-> 同步代码'))
     with cd('/opt'):
         run('git clone https://github.com/simyy/dinglive.git')
+    print(yellow('-> 依赖安装'))
+    run('apt-get install gcc libffi-dev -y')
+    run('pip install -r /opt/dinglive/requirements.txt')
     # 启动nginx
     print(yellow('-> 启动nginx'))
     run('nginx -s stop')
@@ -36,9 +39,11 @@ def deploy():
     run('service mysql start')
     print(yellow('-> 创建数据库表'))
     run('mysql -u root -p123 < /opt/dinglive/database.sql')
-    # 启动supervisor
-    print(yellow('-> 启动supervisord'))
-    run('supervisord -c /opt/dinglive/supervisord.conf')
+    try:
+        run('supervisord -c /opt/dinglive/supervisord.conf')
+    except:
+        run('unlink /tmp/supervisor.sock')
+        run('supervisord -c /opt/dinglive/supervisord.conf')
     print(green('完成部署'))
 
 
@@ -60,7 +65,11 @@ def restart(cmd='all'):
         run('service mysql restart')
     if cmd == 'all' or cmd == 'web':
         print(yellow('-> 重启web'))
-        run('supervisord -c /opt/dinglive/supervisord.conf')
+        try:
+            run('supervisord -c /opt/dinglive/supervisord.conf')
+        except:
+            run('unlink /tmp/supervisor.sock')
+            run('supervisord -c /opt/dinglive/supervisord.conf')
         run('supervisorctl restart dinglive')
     if cmd == 'all' or cmd == 'nginx':
         print(yellow('-> 重启nginx'))
