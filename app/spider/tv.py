@@ -95,8 +95,9 @@ class DouyuCrawl(BaseCrawl):
         url = "https://www.douyu.com/directory/all?page={page}&isAjax=1"
         return super(DouyuCrawl, self).run(url, count=count)
 
-    def _get_avatar_url(self, room_site):
-        return 'http://apic.douyucdn.cn/upload/avatar/default/01_middle.jpg'
+    def _get_avatar_url(self, room_site, default=True):
+        if default:
+            return 'http://apic.douyucdn.cn/upload/avatar/default/01_middle.jpg'
 
         print 'get avatar url:%s' % room_site
         avatar = None
@@ -133,6 +134,8 @@ class DouyuCrawl(BaseCrawl):
             if audience_count[-1] == u'万' or audience_count[-1] == '万':
                 audience_count = float(audience_count[:-1]) * 10000
             avatar = None
+            if audience_count > 100000:
+                avatar = self._get_avatar_url(room_site, default=False)
             items.append({
                 'anchor': anchor,
                 'avatar': avatar,
@@ -295,7 +298,7 @@ class HuomaoCrawl(BaseCrawl):
     def __init__(self):
         super(HuomaoCrawl, self).__init__(method='get')
 
-    def _get_avatar_url(self, room_site):
+    def _get_avatar_url(self, room_site, default=True):
         return "http://www.huomao.com/static/web/images/default_headimg/default_head_normal.jpg"
 
     def parse(self, html):
@@ -313,7 +316,7 @@ class HuomaoCrawl(BaseCrawl):
                 audience_count = int(audience_count)
             tmp = {
                 'anchor': item['nickname'],
-                'avatar': self._get_avatar_url(""),
+                'avatar': self._get_avatar_url(audience_count),
                 'room_id': item['room_number'],
                 'room_name': item['channel'],
                 'room_site': "http://www.huomao.com/%s" % item['room_number'],

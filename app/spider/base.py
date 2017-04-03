@@ -152,7 +152,7 @@ class BaseCrawl(WithBackend):
             except Exception as e:
                 print e
 
-    def _get_avatar_url(self, room_site):
+    def _get_avatar_url(self, room_site, default=True):
         return '/static/img/avatar/default.jpg'
 
     def _get_ctgs(self):

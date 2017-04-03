@@ -36,6 +36,7 @@ def deploy():
     run('nginx -c /opt/dinglive/nginx.conf')
     # 启动mysql
     print(yellow('-> 启动mysql'))
+    run('service mysql stop')
     run('service mysql start')
     print(yellow('-> 创建数据库表'))
     run('mysql -u root -p123 < /opt/dinglive/database.sql')
