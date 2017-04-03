@@ -332,6 +332,17 @@ class HuomaoCrawl(BaseCrawl):
         return super(HuomaoCrawl, self).run(url, count=count)
 
 
+crawlers = {
+    'zq': ZhanqiCrawl(),
+    'lz': LongzhuCrawl(),
+    'pd': PandaCrawl(),
+    'qm': QuanminCrawl(),
+    'hy': HuyaCrawl(),
+    'dy': DouyuCrawl(),
+    'hm': HuomaoCrawl(),
+}
+
+
 if __name__ == '__main__':
     # ZhanqiCrawl().run(count=100)
     # PandaCrawl().run(count=100)

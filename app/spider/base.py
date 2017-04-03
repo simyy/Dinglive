@@ -14,9 +14,9 @@ from models.tables import TVCtg
 def loadCtgDict():
     d = dict()
     if os.path.exists('/opt/dinglive/app'):
-        fileName = '/opt/dinglive/app/crawler/ctg.txt'
+        fileName = '/opt/dinglive/app/spider/ctg.txt'
     else:
-        fileName = 'crawler/ctg.txt'
+        fileName = 'spider/ctg.txt'
     with open(fileName) as f:
         lines = f.readlines()
         lines = filter(
@@ -118,36 +118,39 @@ class BaseCrawl(WithBackend):
         ctg_dict = self._get_ctgs()
         session = self.backend.get_session()
         for item in items:
-            item['category_id'] = CTG_DICT.get(
-                    item['category_id'],
-                    [u'大杂烩', 0, 0])[0]
-            ctg_id = ctg_dict.get(item['category_id'], None)
-            if ctg_id:
-                item['category_id'] = ctg_id
-            else:
-                cate = CTG_DICT.get(item['category_id'])[1]
-                sort = CTG_DICT.get(item['category_id'])[2]
-                tvctg = TVCtg(name=item['category_id'], cate=cate, sort=sort)
-                session.add(tvctg)
-                session.commit()
-                ctg_dict[item['category_id']] = tvctg.id
-                item['category_id'] = tvctg.id
-            tv = TV(**item)
-            r = session.query(TV).filter(
-                TV.room_id == item['room_id'],
-                TV.source_id == item['source_id']).all()[:1]
-            if r:
-                tv.id = r[0].id
+            try:
+                item['category_id'] = CTG_DICT.get(
+                        item['category_id'],
+                        [u'大杂烩', 0, 0])[0]
+                ctg_id = ctg_dict.get(item['category_id'], None)
+                if ctg_id:
+                    item['category_id'] = ctg_id
+                else:
+                    cate = CTG_DICT.get(item['category_id'])[1]
+                    sort = CTG_DICT.get(item['category_id'])[2]
+                    tvctg = TVCtg(name=item['category_id'], cate=cate, sort=sort)
+                    session.add(tvctg)
+                    session.commit()
+                    ctg_dict[item['category_id']] = tvctg.id
+                    item['category_id'] = tvctg.id
+                tv = TV(**item)
+                r = session.query(TV).filter(
+                    TV.room_id == item['room_id'],
+                    TV.source_id == item['source_id']).all()[:1]
+                if r:
+                    tv.id = r[0].id
+                    if not tv.avatar:
+                        tv.avatar = r[0].avatar
+                    # print '重复tvroom id=%d' % int(tv.id)
+                    # print r[0].room_name, r[0].room_id, r[0].source_id
+                    # print tv.room_name, tv.room_id, tv.source_id
                 if not tv.avatar:
-                    tv.avatar = r[0].avatar
-                # print '重复tvroom id=%d' % int(tv.id)
-                # print r[0].room_name, r[0].room_id, r[0].source_id
-                # print tv.room_name, tv.room_id, tv.source_id
-            if not tv.avatar:
-                tv.avatar = self._get_avatar_url(item['room_site'])
-            new_tv = session.merge(tv)
-            session.add(new_tv)
-            session.commit()
+                    tv.avatar = self._get_avatar_url(item['room_site'])
+                new_tv = session.merge(tv)
+                session.add(new_tv)
+                session.commit()
+            except Exception as e:
+                print e
 
     def _get_avatar_url(self, room_site):
         return '/static/img/avatar/default.jpg'
