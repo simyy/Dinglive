@@ -72,6 +72,9 @@ def restart(cmd='all'):
             run('unlink /tmp/supervisor.sock')
             run('supervisord -c /opt/dinglive/supervisord.conf')
         run('supervisorctl restart dinglive')
+    if cmd == 'all' or cmd == 'crond':
+        print(yellow('-> 重启crond'))
+        run('supervisorctl restart crond')
     if cmd == 'all' or cmd == 'nginx':
         print(yellow('-> 重启nginx'))
         run('nginx -s reload')
