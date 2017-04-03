@@ -1,7 +1,0 @@
- */30 * * * * /usr/bin/python /opt/dinglive/app/crawl.py zhanqi >> /opt/logs/dinglive/crawl.log
- */30 * * * * /usr/bin/python /opt/dinglive/app/crawl.py douyu >> /opt/logs/dinglive/crawl.log
- */30 * * * * /usr/bin/python /opt/dinglive/app/crawl.py panda >> /opt/logs/dinglive/crawl.log
- */30 * * * * /usr/bin/python /opt/dinglive/app/crawl.py quanmin >> /opt/logs/dinglive/crawl.log
- */30 * * * * /usr/bin/python /opt/dinglive/app/crawl.py huomao >> /opt/logs/dinglive/crawl.log
- */30 * * * * /usr/bin/python /opt/dinglive/app/crawl.py huya >> /opt/logs/dinglive/crawl.log
- */35 * * * * /usr/bin/python /opt/dinglive/app/timing.py 35 >> /opt/logs/dinglive/crawl.log

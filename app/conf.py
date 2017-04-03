@@ -14,4 +14,4 @@ DB_NAME = 'dinglive'
 
 # crond
 SPIDER_PERIOD = {'prod': 30 * 60, 'test': 10}
-SPIDER_COUNT = {'prod': 500, 'test': 50}
+SPIDER_COUNT = {'prod': 100, 'test': 50}
