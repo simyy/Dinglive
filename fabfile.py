@@ -40,6 +40,8 @@ def deploy():
     run('service mysql start')
     print(yellow('-> 创建数据库表'))
     run('mysql -u root -p123 < /opt/dinglive/database.sql')
+    print(yellow('-> 启动supervisord'))
+    run("ps -ef|grep super | grep -v grep | grep  -v '\[' | awk '{print $2}' | xargs kill")
     try:
         run('supervisord -c /opt/dinglive/supervisord.conf')
     except:
@@ -66,6 +68,7 @@ def restart(cmd='all'):
         run('service mysql restart')
     if cmd == 'all' or cmd == 'web':
         print(yellow('-> 重启web'))
+        run("ps -ef|grep super | grep -v grep | grep  -v '\[' | awk '{print $2}' | xargs kill")
         try:
             run('supervisord -c /opt/dinglive/supervisord.conf')
         except:
