@@ -33,7 +33,10 @@ def sched_task(env):
     period = SPIDER_PERIOD.get(env)
     count = SPIDER_COUNT.get(env)
     for key, crawler in crawlers.items():
-        crawler.run(count)
+        try:
+            crawler.run(count)
+        except Exception as e:
+            print "crawl error", key, e
     Clear().run(env)
     print green('-> 完成抓取 %s' % current())
     schedule.enter(period, 0, sched_task, (env,))
