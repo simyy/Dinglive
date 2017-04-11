@@ -99,7 +99,7 @@ class DouyuCrawl(BaseCrawl):
         if default:
             return 'http://apic.douyucdn.cn/upload/avatar/default/01_middle.jpg'
 
-        print 'get avatar url:%s' % room_site
+        # print 'get avatar url:%s' % room_site
         avatar = None
         try:
             html = self._get(room_site)
