@@ -34,7 +34,7 @@ class Crond(object):
         self.env = env
 
     def add_job(self, seconds, task, args):
-        Crond.scheduler.add_job(task, 'interval', seconds, args)
+        Crond.scheduler.add_job(task, 'interval', seconds=seconds, args=args)
 
     def start(self):
         Crond.scheduler.start()
@@ -54,7 +54,7 @@ def task(env):
 
 def run(env):
     crond = Crond(env)
-    crond.add_job(2, task, (env))
+    crond.add_job(2, task, (env,))
     crond.start()
 
 
