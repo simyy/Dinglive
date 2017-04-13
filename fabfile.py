@@ -67,13 +67,8 @@ def restart(cmd='all'):
         print(yellow('-> 重启mysql'))
         run('service mysql restart')
     if cmd == 'all' or cmd == 'web':
-        print(yellow('-> 重启web'))
-        run("ps -ef|grep super | grep -v grep | grep  -v '\[' | awk '{print $2}' | xargs kill")
-        try:
-            run('supervisord -c /opt/dinglive/supervisord.conf')
-        except:
-            run('unlink /tmp/supervisor.sock')
-            run('supervisord -c /opt/dinglive/supervisord.conf')
+        print(yellow('-> 重启web&crond'))
+        run('supervisorctl -c /opt/dinglive/supervisord.conf restart all')
         run('supervisorctl restart dinglive')
     if cmd == 'all' or cmd == 'crond':
         print(yellow('-> 重启crond'))
