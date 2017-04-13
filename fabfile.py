@@ -67,12 +67,11 @@ def restart(cmd='all'):
         print(yellow('-> 重启mysql'))
         run('service mysql restart')
     if cmd == 'all' or cmd == 'web':
-        print(yellow('-> 重启web&crond'))
-        run('supervisorctl -c /opt/dinglive/supervisord.conf restart all')
-        run('supervisorctl restart dinglive')
+        print(yellow('-> 重启web'))
+        run('supervisorctl -c /opt/dinglive/supervisord.conf restart web')
     if cmd == 'all' or cmd == 'crond':
         print(yellow('-> 重启crond'))
-        run('supervisorctl restart crond')
+        run('supervisorctl -c /opt/dinglive/supervisord.conf restart crond')
     if cmd == 'all' or cmd == 'nginx':
         print(yellow('-> 重启nginx'))
         run('nginx -s reload')
