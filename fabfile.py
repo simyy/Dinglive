@@ -41,7 +41,10 @@ def deploy():
     print(yellow('-> 创建数据库表'))
     run('mysql -u root -p123 < /opt/dinglive/database.sql')
     print(yellow('-> 启动supervisord'))
-    run("ps -ef|grep super | grep -v grep | grep  -v '\[' | awk '{print $2}' | xargs kill")
+    try:
+        run("ps -ef|grep super | grep -v grep | grep  -v '\[' | awk '{print $2}' | xargs kill")
+    except:
+        pass
     try:
         run('supervisord -c /opt/dinglive/supervisord.conf')
     except:
