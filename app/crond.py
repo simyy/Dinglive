@@ -54,7 +54,7 @@ def task(env):
 
 def run(env):
     crond = Crond(env)
-    crond.add_job(2, task, (env,))
+    crond.add_job(SPIDER_PERIOD.get(env), task, (env,))
     crond.start()
 
 
