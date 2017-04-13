@@ -18,30 +18,19 @@ from clear import Clear
 from common.utils import green
 from common.utils import current
 
-from apscheduler.schedulers.background import BlockingScheduler
+import sched
+import time
 import sys
 
 
-# enviroment
 ENV = set([TEST, PROD])
+# 任务调度
+schedule = sched.scheduler(time.time, time.sleep)
 
 
-class Crond(object):
-    '''定时任务'''
-    scheduler = BlockingScheduler()
-
-    def __init__(self, env=TEST):
-        self.env = env
-
-    def add_job(self, seconds, task, args):
-        Crond.scheduler.add_job(task, 'interval', seconds, args)
-
-    def start(self):
-        Crond.scheduler.start()
-
-
-def task(env):
+def sched_task(env):
     print green('-> 开始抓取 %s' % current())
+    period = SPIDER_PERIOD.get(env)
     count = SPIDER_COUNT.get(env)
     for key, crawler in crawlers.items():
         try:
@@ -50,12 +39,12 @@ def task(env):
             print "crawl error", key, e
     Clear().run(env)
     print green('-> 完成抓取 %s' % current())
+    schedule.enter(period, 0, sched_task, (env,))
 
 
 def run(env):
-    crond = Crond(env)
-    crond.add_job(2, task, (env))
-    crond.start()
+    schedule.enter(1, 0, sched_task, (env,))
+    schedule.run()
 
 
 if __name__ == '__main__':
