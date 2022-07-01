@@ -4,7 +4,7 @@ requests==2.10.0
 SQLAlchemy==1.0.14
 tornado==4.4
 beautifulsoup4==4.5.3
-supervisor==3.3.1
+supervisor==3.3.3
 termcolor==1.1.0
 appdirs==1.4.3
 futures==3.0.5
